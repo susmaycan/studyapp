@@ -1,13 +1,16 @@
 import Loader from '@/components/Loader'
 import ScreenSection from '@/components/ScreenSection'
 import ScreenTitle from '@/components/ScreenTitle'
-import { ScreenView } from '@/components/ScreenView'
 import ScrollList from '@/components/ScrollList'
 import TermCard from '@/components/Term/Card'
-import AImage from '@/components/AImage'
+import SetPicture from '@/components/Set/Picture'
+import { useRouter } from 'expo-router'
 
-import { Text, StyleSheet } from 'react-native'
+import { Text, StyleSheet, FlatList, View } from 'react-native'
 import { ISet } from '@/types/ISet'
+import SButton from '@/components/SButton'
+import { GAME_MODE_TYPE } from '@/types/EGameType'
+import SetGameButtons from './SetGameButtons'
 
 interface SetDetailProps {
   set?: ISet | null
@@ -15,35 +18,39 @@ interface SetDetailProps {
 }
 
 export default function SetDetail({ set, isLoading }: SetDetailProps) {
+  const router = useRouter()
+  const startGame = (mode: string) => {
+    router.push(`/play/${set?.id}?mode=${mode}`)
+  }
+
+  const emptyTermsLength = () => set?.terms.length === 0
   return (
-    <ScreenView>
+    <ScrollList>
       <ScreenSection>
-        <ScreenTitle>{set?.name} set 📚</ScreenTitle>
-        <AImage
-          url={
-            set?.picture ||
-            'https://abocados-s3-bucket.s3.eu-west-3.amazonaws.com/recipes/no_photo'
-          }
+        <SetPicture
           alt={`Picture of ${set?.name}`}
-          width={200}
-          height={200}
-          style={styles.setImage}
+          height={100}
+          url={set?.picture}
         />
+        <ScreenTitle>{set?.name}</ScreenTitle>
         {set?.description && <Text>{set?.description}</Text>}
+        <SetGameButtons
+          areButtonsDisabled={emptyTermsLength()}
+          isLoading={isLoading}
+          startGame={startGame}
+        />
       </ScreenSection>
       <ScreenSection title="Terms">
-        <ScrollList>
-          {isLoading && <Loader />}
-          {!isLoading &&
-            set?.terms.map((term) => <TermCard key={term.id} term={term} />)}
-        </ScrollList>
+        {isLoading && <Loader />}
+        <FlatList
+          data={set?.terms}
+          renderItem={({ item: term }) => (
+            <TermCard key={term.id} term={term} />
+          )}
+          numColumns={2}
+        />
+        {emptyTermsLength() && <Text>No terms in this set.</Text>}
       </ScreenSection>
-    </ScreenView>
+    </ScrollList>
   )
 }
-
-const styles = StyleSheet.create({
-  setImage: {
-    borderRadius: 10,
-  },
-})

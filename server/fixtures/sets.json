@@ -1,0 +1,32 @@
+[
+  {
+    "model": "set.set",
+    "pk": 1,
+    "fields": {
+      "name": "Week days",
+      "description": "Week days in Korean",
+      "picture": "https://images.unsplash.com/photo-1608228079968-c7681afb8f1d?q=80&w=2069&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      "terms": [1, 2, 3, 4, 5, 6, 7]
+    }
+  },
+  {
+    "model": "set.set",
+    "pk": 2,
+    "fields": {
+      "name": "Numbers (Native Korean)",
+      "description": "Numbers in Native Korean",
+      "picture": "https://images.unsplash.com/photo-1585401738582-41c80d8f7b10?q=80&w=2016&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      "terms": [8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18]
+    }
+  },
+  {
+    "model": "set.set",
+    "pk": 3,
+    "fields": {
+      "name": "Numbers (Chinese)",
+      "description": "Numbers (Chinese) in Korean",
+      "picture": "https://images.unsplash.com/photo-1687008100167-6e1fc7f0deb3?q=80&w=1960&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      "terms": [19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32]
+    }
+  }
+]

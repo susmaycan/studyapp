@@ -70,9 +70,12 @@ migrate_full:
 
 .PHONY: load_data
 load_data:
-	docker compose -f $(DOCKER_COMPOSE_LOCAL) run --rm $(SERVER_SERVICE) python manage.py loaddata fixtures/user.json
-	docker compose -f $(DOCKER_COMPOSE_LOCAL) run --rm $(SERVER_SERVICE) python manage.py loaddata fixtures/category.json
-	docker compose -f $(DOCKER_COMPOSE_LOCAL) run --rm $(SERVER_SERVICE) python manage.py loaddata fixtures/recipe.json
+	docker compose -f $(DOCKER_COMPOSE_LOCAL) run --rm $(SERVER_SERVICE) python manage.py loaddata fixtures/terms.json
+	docker compose -f $(DOCKER_COMPOSE_LOCAL) run --rm $(SERVER_SERVICE) python manage.py loaddata fixtures/sets.json
+
+.PHONY: generate_data
+generate_data:
+	docker compose -f $(DOCKER_COMPOSE_LOCAL) run --rm $(SERVER_SERVICE) python manage.py dumpdata --exclude=auth --exclude=contenttypes -o fixture.json
 
 .PHONY: setup_database
 setup_database:

@@ -1,9 +1,7 @@
 import { router } from 'expo-router'
 import { Text, Pressable, StyleSheet, View } from 'react-native'
-
-import AImage from '@/components/AImage'
-
 import { ISet } from '@/types/ISet'
+import SetPicture from '@/components/Set/Picture'
 
 interface SetCardProps {
   set: ISet
@@ -16,15 +14,11 @@ export default function SetCard({ set }: SetCardProps) {
   return (
     <Pressable onPress={navigateToDetailPage}>
       <View style={styles.setCard}>
-        <AImage
-          url={
-            set.picture ||
-            'https://abocados-s3-bucket.s3.eu-west-3.amazonaws.com/recipes/no_photo'
-          }
-          alt={`Picture of ${set.name}`}
-          width={200}
+        <SetPicture
+          alt={`Picture of ${set?.name}`}
           height={200}
-          style={styles.setImage}
+          url={set?.picture}
+          width={200}
         />
         <Text style={styles.setTitle}>{set.name}</Text>
       </View>
@@ -41,12 +35,9 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     rowGap: 5,
   },
-  setImage: {
-    borderRadius: 10,
-  },
   setTitle: {
     fontSize: 16,
-    fontWeight: 600,
+    fontWeight: 'bold',
   },
   setDuration: {
     flexDirection: 'row',

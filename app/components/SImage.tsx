@@ -1,14 +1,15 @@
 import React from 'react'
 import { Image } from 'react-native'
 
-interface AImageProps {
+interface SImageProps {
   alt: string
   height?: number
   url: string
   width?: number
   style?: Record<string, string | number>
 }
-const AImage = ({ url, alt, width, height, style }: AImageProps) => {
+
+const SImage = ({ url, alt, width, height, style }: SImageProps) => {
   return (
     <Image
       alt={alt}
@@ -25,4 +26,4 @@ const AImage = ({ url, alt, width, height, style }: AImageProps) => {
   )
 }
 
-export default AImage
+export default SImage

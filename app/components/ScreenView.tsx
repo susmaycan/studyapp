@@ -20,7 +20,7 @@ export function ScreenView({ children, title }: ScreenViewProps) {
 const styles = StyleSheet.create({
   screenView: {
     paddingHorizontal: 20,
-    paddingVertical: 30,
+    marginVertical: 20,
     justifyContent: 'center',
     alignItems: 'center',
   },

@@ -4,6 +4,7 @@ import { Stack, useLocalSearchParams, useRouter } from 'expo-router'
 import { IconButton, PaperProvider } from 'react-native-paper'
 import { ISet } from '@/types/ISet'
 import SetDetail from '@/components/Set/Detail'
+import { ScreenView } from '@/components/ScreenView'
 
 export default function SetDetailPage() {
   const params = useLocalSearchParams()
@@ -21,7 +22,7 @@ export default function SetDetailPage() {
     router.dismiss()
   }
 
-  const goToRecipes = () => {
+  const goToSets = () => {
     router.replace('/sets')
   }
 
@@ -31,17 +32,19 @@ export default function SetDetailPage() {
     <PaperProvider>
       <Stack.Screen
         options={{
-          title: '',
+          title: data ? data.name : 'Set',
           headerLeft: () => (
             <IconButton
               icon="arrow-left"
               size={20}
-              onPress={canGoBack() ? handleDismiss : goToRecipes}
+              onPress={canGoBack() ? handleDismiss : goToSets}
             />
           ),
         }}
       />
-      <SetDetail set={data} isLoading={isLoading} />
+      <ScreenView>
+        <SetDetail set={data} isLoading={isLoading} />
+      </ScreenView>
     </PaperProvider>
   )
 }

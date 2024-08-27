@@ -1,0 +1,333 @@
+[
+  {
+    "model": "term.term",
+    "pk": 1,
+    "fields": {
+      "front": "Monday",
+      "back": "월요일",
+      "description": null,
+      "progress": 0
+    }
+  },
+  {
+    "model": "term.term",
+    "pk": 2,
+    "fields": {
+      "front": "Tuesday",
+      "back": "화요일",
+      "description": null,
+      "progress": 0
+    }
+  },
+  {
+    "model": "term.term",
+    "pk": 3,
+    "fields": {
+      "front": "Wednesday",
+      "back": "수요일",
+      "description": null,
+      "progress": 0
+    }
+  },
+  {
+    "model": "term.term",
+    "pk": 4,
+    "fields": {
+      "front": "Thursday",
+      "back": "목요일",
+      "description": null,
+      "progress": 0
+    }
+  },
+  {
+    "model": "term.term",
+    "pk": 5,
+    "fields": {
+      "front": "Friday",
+      "back": "금요일",
+      "description": null,
+      "progress": 0
+    }
+  },
+  {
+    "model": "term.term",
+    "pk": 6,
+    "fields": {
+      "front": "Saturday",
+      "back": "토요일",
+      "description": null,
+      "progress": 0
+    }
+  },
+  {
+    "model": "term.term",
+    "pk": 7,
+    "fields": {
+      "front": "Sunday",
+      "back": "일요일",
+      "description": null,
+      "progress": 0
+    }
+  },
+
+  {
+    "model": "term.term",
+    "pk": 8,
+    "fields": {
+      "front": "1 (Native Korean)",
+      "back": "하나",
+      "description": null,
+      "progress": 0
+    }
+  },
+  {
+    "model": "term.term",
+    "pk": 9,
+    "fields": {
+      "front": "2 (Native Korean)",
+      "back": "둘",
+      "description": null,
+      "progress": 0
+    }
+  },
+  {
+    "model": "term.term",
+    "pk": 10,
+    "fields": {
+      "front": "3 (Native Korean)",
+      "back": "셋",
+      "description": null,
+      "progress": 0
+    }
+  },
+  {
+    "model": "term.term",
+    "pk": 11,
+    "fields": {
+      "front": "4 (Native Korean)",
+      "back": "넷",
+      "description": null,
+      "progress": 0
+    }
+  },
+  {
+    "model": "term.term",
+    "pk": 12,
+    "fields": {
+      "front": "5 (Native Korean)",
+      "back": "다섯",
+      "description": null,
+      "progress": 0
+    }
+  },
+  {
+    "model": "term.term",
+    "pk": 13,
+    "fields": {
+      "front": "6 (Native Korean)",
+      "back": "여섯",
+      "description": null,
+      "progress": 0
+    }
+  },
+  {
+    "model": "term.term",
+    "pk": 14,
+    "fields": {
+      "front": "7 (Native Korean)",
+      "back": "일곱",
+      "description": null,
+      "progress": 0
+    }
+  },
+  {
+    "model": "term.term",
+    "pk": 15,
+    "fields": {
+      "front": "8 (Native Korean)",
+      "back": "여덟",
+      "description": null,
+      "progress": 0
+    }
+  },
+  {
+    "model": "term.term",
+    "pk": 16,
+    "fields": {
+      "front": "9 (Native Korean)",
+      "back": "아홉",
+      "description": null,
+      "progress": 0
+    }
+  },
+  {
+    "model": "term.term",
+    "pk": 17,
+    "fields": {
+      "front": "10 (Native Korean)",
+      "back": "열",
+      "description": null,
+      "progress": 0
+    }
+  },
+  {
+    "model": "term.term",
+    "pk": 18,
+    "fields": {
+      "front": "20 (Native Korean)",
+      "back": "스물",
+      "description": null,
+      "progress": 0
+    }
+  },
+  {
+    "model": "term.term",
+    "pk": 18,
+    "fields": {
+      "front": "2",
+      "back": "이",
+      "description": null,
+      "progress": 0
+    }
+  },
+  {
+    "model": "term.term",
+    "pk": 19,
+    "fields": {
+      "front": "4",
+      "back": "사",
+      "description": null,
+      "progress": 0
+    }
+  },
+  {
+    "model": "term.term",
+    "pk": 20,
+    "fields": {
+      "front": "5",
+      "back": "오",
+      "description": null,
+      "progress": 0
+    }
+  },
+  {
+    "model": "term.term",
+    "pk": 21,
+    "fields": {
+      "front": "7",
+      "back": "칠",
+      "description": null,
+      "progress": 0
+    }
+  },
+  {
+    "model": "term.term",
+    "pk": 22,
+    "fields": {
+      "front": "8",
+      "back": "팔",
+      "description": null,
+      "progress": 0
+    }
+  },
+  {
+    "model": "term.term",
+    "pk": 23,
+    "fields": {
+      "front": "9",
+      "back": "구",
+      "description": null,
+      "progress": 0
+    }
+  },
+  {
+    "model": "term.term",
+    "pk": 24,
+    "fields": {
+      "front": "10",
+      "back": "십",
+      "description": null,
+      "progress": 0
+    }
+  },
+  {
+    "model": "term.term",
+    "pk": 25,
+    "fields": {
+      "front": "1",
+      "back": "일",
+      "description": null,
+      "progress": 0
+    }
+  },
+  {
+    "model": "term.term",
+    "pk": 26,
+    "fields": {
+      "front": "3",
+      "back": "삼",
+      "description": null,
+      "progress": 0
+    }
+  },
+  {
+    "model": "term.term",
+    "pk": 27,
+    "fields": {
+      "front": "0 (ball)",
+      "back": "공",
+      "description": null,
+      "progress": 0
+    }
+  },
+  {
+    "model": "term.term",
+    "pk": 28,
+    "fields": {
+      "front": "6",
+      "back": "육",
+      "description": null,
+      "progress": 0
+    }
+  },
+  {
+    "model": "term.term",
+    "pk": 29,
+    "fields": {
+      "front": "100",
+      "back": "백",
+      "description": null,
+      "progress": 0
+    }
+  },
+  {
+    "model": "term.term",
+    "pk": 30,
+    "fields": {
+      "front": "10000",
+      "back": "만",
+      "description": null,
+      "progress": 0
+    }
+  },
+  {
+    "model": "term.term",
+    "pk": 31,
+    "fields": {
+      "front": "1000",
+      "back": "천",
+      "description": null,
+      "progress": 0
+    }
+  },
+  {
+    "model": "term.term",
+    "pk": 32,
+    "fields": {
+      "front": "0",
+      "back": "영",
+      "description": null,
+      "progress": 0
+    }
+  }
+]

@@ -22,4 +22,5 @@ urlpatterns = [
     path("admin/", admin.site.urls),
     path("", include(("set.urls", "set"), namespace="set")),
     path("", include(("term.urls", "term"), namespace="term")),
+    path("", include(("user.urls", "user"), namespace="user")),
 ]

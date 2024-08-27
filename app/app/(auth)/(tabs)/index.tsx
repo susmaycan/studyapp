@@ -12,6 +12,7 @@ import { ITermList } from '@/types/ITermList'
 import { ISetList } from '@/types/ISetList'
 import { Text } from 'react-native'
 import SetCard from '@/components/Set/Card'
+import TermCard from '@/components/Term/Card'
 
 export default function Index() {
   const {
@@ -54,11 +55,7 @@ export default function Index() {
         <ScrollList horizontal={true}>
           {isLoadingTerms && <Loader />}
           {!isLoadingTerms &&
-            termList().map((term) => (
-              <Text key={term.id}>
-                {term.front} - {term.back}
-              </Text>
-            ))}
+            termList().map((term) => <TermCard term={term} key={term.id} />)}
         </ScrollList>
       </ScreenSection>
     </ScreenView>

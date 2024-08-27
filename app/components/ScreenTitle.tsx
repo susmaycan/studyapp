@@ -14,5 +14,7 @@ const styles = StyleSheet.create({
   screenTitle: {
     fontSize: 30,
     fontWeight: 'bold',
+    textAlign: 'center',
+    paddingVertical: 5,
   },
 })

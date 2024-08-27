@@ -1,13 +1,15 @@
-import { Text, StyleSheet, View, Pressable, Animated } from 'react-native'
-
+import { Text, StyleSheet, Pressable, Animated } from 'react-native'
 import { ITerm } from '@/types/ITerm'
 import { useRef, useState } from 'react'
+import useSpeech from '@/hooks/useSpeech'
 
 interface TermCardProps {
   term: ITerm
 }
 
 export default function TermCard({ term }: TermCardProps) {
+  const { speak } = useSpeech()
+
   const flipAnimation = useRef(new Animated.Value(0)).current
   let flipRotation = 0
   flipAnimation.addListener(({ value }) => (flipRotation = value))
@@ -33,6 +35,7 @@ export default function TermCard({ term }: TermCardProps) {
   }
 
   const flipToFront = () => {
+    speak(term.back)
     Animated.timing(flipAnimation, {
       toValue: 180,
       duration: 300,
@@ -65,13 +68,15 @@ export default function TermCard({ term }: TermCardProps) {
 
 const styles = StyleSheet.create({
   termCard: {
-    width: 200,
-    height: 270,
+    width: 120,
+    height: 120,
     alignContent: 'center',
     alignItems: 'center',
     justifyContent: 'center',
+    flexWrap: 'wrap',
     rowGap: 5,
     borderRadius: 10,
+    margin: 5,
   },
   termCardFront: {
     backgroundColor: '#be97f6',
@@ -83,6 +88,7 @@ const styles = StyleSheet.create({
   },
   termTitle: {
     fontSize: 16,
-    fontWeight: 600,
+    fontWeight: 'bold',
+    textAlign: 'center',
   },
 })
