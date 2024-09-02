@@ -6,8 +6,6 @@ from .models import Term
 
 
 class TermSerializer(serializers.ModelSerializer):
-    id = serializers.IntegerField(read_only=True)
-
     class Meta:
         model = Term
         fields = ("id", "front", "back", "description", "progress")

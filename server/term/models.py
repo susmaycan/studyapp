@@ -1,11 +1,10 @@
-from django.db import models
-
+from djongo import models
 
 class Term(models.Model):
     front = models.CharField(max_length=50)
     back = models.CharField(max_length=50)
     description = models.CharField(max_length=100, blank=True, null=True)
-    progress = models.IntegerField(max_length=100, default=0)
+    progress = models.IntegerField(default=0)
 
     def __str__(self):
         return self.front

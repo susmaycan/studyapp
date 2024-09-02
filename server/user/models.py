@@ -1,9 +1,9 @@
 from django.contrib.auth.models import AbstractUser
-from django.db import models
+from djongo import models
 
 
 class User(AbstractUser):
-    id = models.BigAutoField(primary_key=True)
+    _id = models.ObjectIdField()
 
     email = models.EmailField(unique=True)
     USERNAME_FIELD = "email"

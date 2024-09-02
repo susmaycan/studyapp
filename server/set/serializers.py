@@ -9,7 +9,6 @@ from .models import Set
 
 
 class SetSerializer(serializers.ModelSerializer):
-    id = serializers.IntegerField(read_only=True)
     terms = TermSerializer(many=True)
 
     class Meta:
@@ -34,12 +33,9 @@ class SetCreateSerializer(serializers.ModelSerializer):
         ]
 
     def create(self, data):
-        print("**************************")
         terms = data.pop("terms")
-        print("🚀 ~ terms:", terms)
 
         term_list = terms.split(";")
-        print("🚀 ~ term_list:", term_list)
         term_ids = []
         for term in term_list:
             if term:
@@ -49,8 +45,6 @@ class SetCreateSerializer(serializers.ModelSerializer):
                 created_term = Term.objects.create(front=term_front, back=term_back)
                 term_ids.append(created_term.id)
 
-        print(term_ids)
         created_set = Set.objects.create(**data)
         created_set.terms.set(term_ids)
-        print("**************************")
         return created_set

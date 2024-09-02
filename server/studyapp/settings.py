@@ -53,6 +53,7 @@ INSTALLED_APPS = [
     "set",
     "term",
     "user",
+    "djongo",
 ]
 
 MIDDLEWARE = [
@@ -91,13 +92,21 @@ WSGI_APPLICATION = "studyapp.wsgi.application"
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
 DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.postgresql",
-        "NAME": env("POSTGRES_DB"),
-        "USER": env("POSTGRES_USER"),
-        "PASSWORD": env("POSTGRES_PASSWORD"),
-        "HOST": env("POSTGRES_HOST"),
-        "PORT": env("POSTGRES_PORT"),
+    # "default": {
+    #     "ENGINE": "django.db.backends.postgresql",
+    #     "NAME": env("POSTGRES_DB"),
+    #     "USER": env("POSTGRES_USER"),
+    #     "PASSWORD": env("POSTGRES_PASSWORD"),
+    #     "HOST": env("POSTGRES_HOST"),
+    #     "PORT": env("POSTGRES_PORT"),
+    # },
+    'default': {
+        'ENGINE': 'djongo',
+        'NAME': env("MONGO_DB"),
+        'ENFORCE_SCHEMA': False,
+        'CLIENT': {
+            'host': env("MONGO_URI")
+        }
     }
 }
 
