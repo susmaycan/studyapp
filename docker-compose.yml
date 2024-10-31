@@ -4,11 +4,6 @@ volumes:
   node_modules:
   node_modules-3:
 services:
-  db:
-    container_name: studyapp-db
-    image: postgres
-    env_file:
-      - ./server/.env
   server:
     container_name: studyapp-server
     build:
@@ -21,8 +16,6 @@ services:
       - ./server:/app
     ports:
       - "3003:3003"
-    depends_on:
-      - db
   # front-web:
   #   container_name: abocados-web
   #   restart: always

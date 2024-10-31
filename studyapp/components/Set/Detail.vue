@@ -5,18 +5,22 @@ const props = defineProps<{
 
 const router = useRouter()
 const startGame = (mode: string) => {
-  router.push(`/play/${set?.id}?mode=${mode}`)
+  router.push(`/play/${props.set?.id}?mode=${mode}`)
 }
-
-const emptyTermsLength = computed(() => props.set?.terms.length === 0)
 </script>
 <template>
   <div>
-    <div>
-      <set-image :url="set.picture" :width="100" :height="100" />
+    <div class="flex flex-col text-center items-center mb-3">
+      <h1 class="text-4xl mb-2">{{ set?.name }}</h1>
+      <set-image
+        v-if="set.picture"
+        :url="set.picture"
+        :width="200"
+        :height="200"
+        :alt="`Picture of set ${set.name}`"
+      />
+      <p class="mt-2">{{ set?.description }}</p>
 
-      <h1>{{ set?.name }}</h1>
-      <p>{{ set?.description }}</p>
       <!-- <SetGameButtons
         areButtonsDisabled="{emptyTermsLength()}"
         isLoading="{isLoading}"
@@ -24,13 +28,9 @@ const emptyTermsLength = computed(() => props.set?.terms.length === 0)
       /> -->
     </div>
     <div>
-      <!-- <FlatList data={set?.terms} renderItem={({ item:
-      term }) => (
-      <TermCard key="{term.id}" term="{term}" />
-      )} numColumns={2} /> {emptyTermsLength() &&
-      <Text>No terms in this set.</Text>} -->
-      <div v-for="term in set.term" :key="term.id">
-        {{ term.name }}
+      <p v-if="set.terms.length === 0">No terms in this set.</p>
+      <div class="flex justify-center flex-wrap">
+        <term-card v-for="term in set.terms" :key="term.id" :term="term" />
       </div>
     </div>
   </div>

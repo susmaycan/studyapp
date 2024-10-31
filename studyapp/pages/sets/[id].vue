@@ -5,15 +5,16 @@ const {
   data,
   execute: fetchSetDetail,
   isLoading,
-} = useAPI<ISet>(() => '/sets/' + setId.value)
+} = useAPI<ISet>(`/sets/${setId.value}/`)
 
 onMounted(() => {
+  console.log('Hi')
   fetchSetDetail()
 })
 </script>
 
 <template>
-  <p v-if="isLoading">Loading...</p>
+  <set-skeleton-detail v-if="isLoading" />
   <set-detail v-if="data" :set="data" />
 </template>
 

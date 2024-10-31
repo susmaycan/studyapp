@@ -3,6 +3,7 @@ from djongo import models
 class Term(models.Model):
     front = models.CharField(max_length=50)
     back = models.CharField(max_length=50)
+    back_alternatives = models.CharField(null=True, blank=True, max_length=200)
     description = models.CharField(max_length=100, blank=True, null=True)
     progress = models.IntegerField(default=0)
 

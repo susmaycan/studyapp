@@ -9,13 +9,32 @@ const onCardClick = () => {
 }
 </script>
 <template>
-  <div
-    class="flex flex-col justify-center text-center items-center p-5"
-    @click="onCardClick"
-  >
-    <set-image :url="set.picture" :width="200" :height="200" />
+  <div class="set-card" @click="onCardClick">
+    <set-image
+      v-if="set.picture"
+      :url="set.picture"
+      :width="180"
+      :height="180"
+      :alt="`Picture of set ${set.name}`"
+    />
     <p>{{ set.name }}</p>
   </div>
 </template>
+<style lang="css" scoped>
+.set-card {
+  width: 200px;
+  height: 200px;
+  border-radius: 1rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  text-align: center;
+  margin: 1rem;
+}
 
-<style scoped></style>
+.set-card:hover {
+  cursor: pointer;
+  opacity: 0.5;
+}
+</style>
