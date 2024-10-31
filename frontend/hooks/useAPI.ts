@@ -1,11 +1,11 @@
 import { useState } from 'react'
-import { EFetchMethod } from '@/types/EFetchMethod'
+import { EFetchMethod } from '@/components/types/EFetchMethod'
 import {
   IFetchConfig,
   IFetchErrors,
   IFetchOptions,
   IServerErrors,
-} from '@/types/IFetchConfig'
+} from '@/components/types/IFetchConfig'
 
 export default function useApi<ResponseType>() {
   const [data, setData] = useState<ResponseType | null>(null)
@@ -38,7 +38,9 @@ export default function useApi<ResponseType>() {
       options.body = formData
     }
 
-    const base = `${process.env.EXPO_PUBLIC_API_URL}/${route}/`
+    console.log('🚀 ~ fetchData ~ process.env.API_URL:', process.env)
+
+    const base = `${process.env.NEXT_PUBLIC_API_URL}/${route}/`
     const urlParams = config?.params
       ? `?${new URLSearchParams(config?.params)}`
       : ''

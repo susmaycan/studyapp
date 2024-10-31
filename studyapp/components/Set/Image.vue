@@ -1,0 +1,22 @@
+<script setup lang="ts">
+const props = defineProps<{
+  url: string
+  alt: string
+  width?: number
+  height?: number
+}>()
+
+const width = computed(() => (props.width || 200) + 'px')
+const height = computed(() => (props.height || 200) + 'px')
+</script>
+<template>
+  <img :alt="alt" class="set-image" :src="url" />
+</template>
+<style scoped>
+.set-image {
+  border-radius: 0.5rem;
+  object-fit: cover;
+  width: v-bind(width);
+  height: v-bind(height);
+}
+</style>
