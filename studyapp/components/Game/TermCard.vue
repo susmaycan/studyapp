@@ -1,18 +1,26 @@
 <script setup lang="ts">
-defineProps<{
+const props = defineProps<{
   term: ITerm
+  mode: GAME_CHOOSE_TYPE.BACK | GAME_CHOOSE_TYPE.FRONT
+  isCorrect: boolean | null
 }>()
+const emits = defineEmits(['selectOption'])
+
+const showFront = computed(() => props.mode !== GAME_CHOOSE_TYPE.FRONT)
 
 const onCardClick = () => {
-  showFront.value = !showFront.value
+  emits('selectOption')
 }
-
-const showFront = ref(true)
 </script>
 <template>
   <div
     class="term-card"
-    :class="{ 'term-card-front': showFront, 'term-card-back': !showFront }"
+    :class="{
+      'term-card-front': showFront,
+      'term-card-back': !showFront,
+      'term-card-success': isCorrect,
+      'term-card-error': isCorrect === false,
+    }"
     @click="onCardClick"
   >
     <p v-if="showFront">{{ term.front }}</p>
@@ -45,5 +53,11 @@ const showFront = ref(true)
 }
 .term-card-back {
   background-color: purple;
+}
+.term-card-success {
+  background-color: green;
+}
+.term-card-error {
+  background-color: red;
 }
 </style>

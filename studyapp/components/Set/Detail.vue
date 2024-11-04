@@ -5,8 +5,10 @@ const props = defineProps<{
 
 const router = useRouter()
 const startGame = (mode: string) => {
-  router.push(`/play/${props.set?.id}?mode=${mode}`)
+  router.push(`/game/${props.set?.id}?mode=${mode}`)
 }
+
+const emptyTermsLength = computed(() => props.set.terms.length === 0)
 </script>
 <template>
   <div>
@@ -20,15 +22,13 @@ const startGame = (mode: string) => {
         :alt="`Picture of set ${set.name}`"
       />
       <p class="mt-2">{{ set?.description }}</p>
-
-      <!-- <SetGameButtons
-        areButtonsDisabled="{emptyTermsLength()}"
-        isLoading="{isLoading}"
-        startGame="{startGame}"
-      /> -->
+      <game-buttons
+        :are-buttons-disabled="emptyTermsLength"
+        @start-game="startGame"
+      />
     </div>
     <div>
-      <p v-if="set.terms.length === 0">No terms in this set.</p>
+      <p v-if="emptyTermsLength">No terms in this set.</p>
       <div class="flex justify-center flex-wrap">
         <term-card v-for="term in set.terms" :key="term.id" :term="term" />
       </div>
