@@ -1,9 +1,6 @@
-import type { IGameMode } from '~/types/EGameType'
-
-export function useGame(termList: ITerm[]) {
+export function useGame(termList: ITerm[], mode: Ref<IGameMode>) {
   const optionList = ref<ITerm[]>(termList)
   const index = ref(0)
-  const mode = ref<IGameMode>(EGameMode.front)
 
   const resultList = ref<ITerm[]>([])
   const choiceList = ref<ITerm[]>([])
@@ -57,11 +54,16 @@ export function useGame(termList: ITerm[]) {
   const initGame = () => {
     optionList.value = shuffleList(termList)
     resultList.value = []
-    mode.value =
-      Math.floor(Math.random() * 2) === 0 ? EGameMode.front : EGameMode.back
     index.value = 0
     getChoices(optionList.value, index.value)
   }
+
+  watch(
+    () => mode.value,
+    (newValue, oldValue) => {
+      if (newValue !== oldValue) initGame()
+    }
+  )
 
   return {
     selectedTerm,

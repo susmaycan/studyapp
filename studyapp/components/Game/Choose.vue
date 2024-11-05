@@ -1,8 +1,10 @@
 <script setup lang="ts">
 const props = defineProps<{
   set: ISet
+  mode: IGameMode
 }>()
 
+const { mode: propsMode } = toRefs(props)
 const {
   selectedTerm,
   choiceList,
@@ -14,7 +16,7 @@ const {
   selectChoice,
   selectedResult,
   goNext,
-} = useGame(props.set.terms)
+} = useGame(props.set.terms, propsMode)
 
 const canShowList = computed(
   () => !isFinished.value && props.set?.terms?.length
@@ -32,22 +34,24 @@ const isCorrectOption = (choice: ITerm) => {
   return null
 }
 
+const { speak } = useSpeechAPI()
+
 onMounted(() => {
   initGame()
 })
 
 const selectOption = (choice: ITerm) => {
-  // if (selectedTerm.value?.back) speak(selectedTerm.value!.back)
+  if (selectedTerm.value?.back)
+    speak(selectedTerm.value!.back_alternatives || selectedTerm.value!.back)
   selectChoice(choice)
 }
 </script>
 <template>
   <div>
-    <h2 class="text-4xl my-4">Game time!</h2>
     <div v-if="canShowList">
       <div class="my-4">
         <p>Select the correct word for</p>
-        <h1 class="text-4xl font-bold">
+        <s-title>
           <span v-if="mode === EGameMode.front">{{ selectedTerm?.front }}</span>
           <span v-else>
             {{ selectedTerm?.back }}
@@ -55,7 +59,7 @@ const selectOption = (choice: ITerm) => {
               [{{ selectedTerm.back_alternatives }}]
             </span>
           </span>
-        </h1>
+        </s-title>
       </div>
       <div class="flex flex-wrap justify-center">
         <game-term-card

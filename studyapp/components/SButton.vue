@@ -8,7 +8,12 @@ const emits = defineEmits(['click'])
 </script>
 
 <template>
-  <u-button :loading="isLoading" @click="emits('click')" :disabled="isDisabled">
+  <u-button
+    :loading="isLoading"
+    @click="emits('click')"
+    :disabled="isDisabled"
+    class="text-base"
+  >
     <slot />
   </u-button>
 </template>

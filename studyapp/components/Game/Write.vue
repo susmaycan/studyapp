@@ -51,11 +51,10 @@ onMounted(() => {
 </script>
 <template>
   <div>
-    <h2 class="text-4xl my-4">Game time!</h2>
     <div v-if="canShowList">
       <div class="my-4">
         <p>How do you say</p>
-        <h1 class="text-4xl font-bold">{{ selectedTerm?.front }}</h1>
+        <s-title>{{ selectedTerm?.front }}</s-title>
         <p>You can type it in kana or kanji</p>
       </div>
       <div class="my-3">
