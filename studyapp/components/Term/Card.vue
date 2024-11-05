@@ -1,9 +1,12 @@
 <script setup lang="ts">
-defineProps<{
+const props = defineProps<{
   term: ITerm
 }>()
 
+const { speak, isCompatible } = useSpeechAPI()
+
 const onCardClick = () => {
+  if (showFront.value && isCompatible.value) speak(props.term.back)
   showFront.value = !showFront.value
 }
 

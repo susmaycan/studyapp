@@ -50,7 +50,9 @@ export default function WrittenGame({ set, isLoading }: WrittenGameProps) {
       speak(selectedTerm()!.back)
       const text = isCorrect()
         ? `Correct! ✅`
-        : `Incorrect! ❌ Correct answer is ${selectedTerm()?.back} `
+        : `Incorrect! ❌ Correct answer is ${
+            selectedTerm()?.back[selectedTerm]
+          } `
 
       displaySnackBar(text)
     }
