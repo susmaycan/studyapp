@@ -48,9 +48,7 @@ const selectOption = (choice: ITerm) => {
       <div class="my-4">
         <p>Select the correct word for</p>
         <h1 class="text-4xl font-bold">
-          <span v-if="mode === GAME_CHOOSE_TYPE.FRONT">{{
-            selectedTerm?.front
-          }}</span>
+          <span v-if="mode === EGameMode.front">{{ selectedTerm?.front }}</span>
           <span v-else>
             {{ selectedTerm?.back }}
             <span v-if="selectedTerm?.back_alternatives">

@@ -1,7 +1,7 @@
 <script setup lang="ts">
 const route = useRoute()
 const setId = computed(() => route.params.id)
-const mode = computed(() => route.query.mode || GAME_MODE_TYPE.CHOOSE)
+const mode = computed(() => route.query.mode || EGameType.choose)
 const {
   data,
   execute: fetchSetDetail,
@@ -15,9 +15,10 @@ onMounted(() => {
 
 <template>
   <set-skeleton-detail v-if="isLoading" />
+  <game-settings />
   <div v-if="data">
-    <game-choose v-if="mode === GAME_MODE_TYPE.CHOOSE" :set="data" />
-    <game-write v-if="mode === GAME_MODE_TYPE.WRITE" :set="data" />
+    <game-choose v-if="mode === EGameType.choose" :set="data" />
+    <game-write v-if="mode === EGameType.write" :set="data" />
   </div>
 </template>
 

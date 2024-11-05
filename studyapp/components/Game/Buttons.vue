@@ -12,13 +12,13 @@ const emits = defineEmits(['startGame'])
     <div class="flex justify-center items-center gap-2">
       <s-button
         :is-disabled="areButtonsDisabled"
-        @click="emits('startGame', GAME_MODE_TYPE.CHOOSE)"
+        @click="emits('startGame', EGameType.choose)"
       >
         Easy 😌
       </s-button>
       <s-button
         :is-disabled="areButtonsDisabled"
-        @click="emits('startGame', GAME_MODE_TYPE.WRITE)"
+        @click="emits('startGame', EGameType.write)"
       >
         Hard 🥵
       </s-button>

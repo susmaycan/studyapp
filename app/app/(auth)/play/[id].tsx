@@ -8,7 +8,7 @@ import { ScreenView } from '@/components/ScreenView'
 import ScreenSection from '@/components/ScreenSection'
 import ScreenTitle from '@/components/ScreenTitle'
 import WrittenGame from '@/components/Set/WrittenGame'
-import { GAME_MODE_TYPE } from '@/types/EGameType'
+import { EGameType } from '@/types/EGameType'
 import Loader from '@/components/Loader'
 import SetPicture from '@/components/Set/Picture'
 import SetGameButtons from '@/components/Set/SetGameButtons'
@@ -21,7 +21,7 @@ export default function SetGamePage() {
 
   const { fetchData, data, isLoading } = useAPI<ISet>()
 
-  const [mode, setMode] = useState<string>(GAME_MODE_TYPE.NONE)
+  const [mode, setMode] = useState<string>(EGameType.NONE)
 
   useEffect(() => {
     if (params.mode) setMode(params.mode)
@@ -69,7 +69,7 @@ export default function SetGamePage() {
               url={data?.picture}
             />
             <ScreenTitle>{data?.name}</ScreenTitle>
-            {mode == GAME_MODE_TYPE.NONE && (
+            {mode == EGameType.NONE && (
               <SetGameButtons
                 areButtonsDisabled={emptyTermsLength()}
                 isLoading={isLoading}
@@ -78,10 +78,10 @@ export default function SetGamePage() {
             )}
           </ScreenSection>
         )}
-        {!isLoading && mode == GAME_MODE_TYPE.CHOOSE && (
+        {!isLoading && mode == EGameType.choose && (
           <SetGame set={data} isLoading={isLoading} />
         )}
-        {!isLoading && mode == GAME_MODE_TYPE.WRITE && (
+        {!isLoading && mode == EGameType.write && (
           <WrittenGame set={data} isLoading={isLoading} />
         )}
       </ScreenView>

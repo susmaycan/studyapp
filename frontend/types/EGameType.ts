@@ -1,5 +1,5 @@
-export enum GAME_MODE_TYPE {
-  CHOOSE = 'CHOOSE',
-  WRITE = 'WRITE',
+export enum EGameType {
+  choose = 'choose',
+  write = 'write',
   NONE = 'NONE',
 }

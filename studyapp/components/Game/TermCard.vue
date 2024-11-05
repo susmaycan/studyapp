@@ -1,12 +1,12 @@
 <script setup lang="ts">
 const props = defineProps<{
   term: ITerm
-  mode: GAME_CHOOSE_TYPE.BACK | GAME_CHOOSE_TYPE.FRONT
+  mode: IGameMode
   isCorrect: boolean | null
 }>()
 const emits = defineEmits(['selectOption'])
 
-const showFront = computed(() => props.mode !== GAME_CHOOSE_TYPE.FRONT)
+const showFront = computed(() => props.mode !== EGameMode.front)
 
 const onCardClick = () => {
   emits('selectOption')

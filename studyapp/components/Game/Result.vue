@@ -1,10 +1,8 @@
 <script setup lang="ts">
-import { GAME_CHOOSE_TYPE } from '~/types/EGameType'
-
 const props = defineProps<{
   results: ITerm[] | string[]
   terms: ITerm[]
-  mode?: GAME_CHOOSE_TYPE.BACK | GAME_CHOOSE_TYPE.FRONT
+  mode?: IGameMode
 }>()
 const emits = defineEmits(['initGame'])
 
@@ -15,12 +13,9 @@ const stats = computed(() => {
 
     if (props.mode) {
       const result = props.results[index] as ITerm
-      if (props.mode === GAME_CHOOSE_TYPE.FRONT && term.back === result.back)
+      if (props.mode === EGameMode.front && term.back === result.back)
         isCorrect = true
-      else if (
-        props.mode === GAME_CHOOSE_TYPE.BACK &&
-        term.front === result.front
-      )
+      else if (props.mode === EGameMode.back && term.front === result.front)
         isCorrect = true
     } else if (term.back === props.results[index]) isCorrect = true
 

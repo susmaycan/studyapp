@@ -1,6 +1,6 @@
 import { Text, StyleSheet, View } from 'react-native'
 import SButton from '@/components/SButton'
-import { GAME_MODE_TYPE } from '@/types/EGameType'
+import { EGameType } from '@/types/EGameType'
 
 interface SetGameButtonsProps {
   areButtonsDisabled?: boolean
@@ -20,13 +20,13 @@ export default function SetGameButtons({
         <SButton
           title="Easy 😌"
           isLoading={isLoading}
-          onPress={() => startGame(GAME_MODE_TYPE.CHOOSE)}
+          onPress={() => startGame(EGameType.choose)}
           disabled={areButtonsDisabled}
         />
         <SButton
           title="Hard 🥵"
           isLoading={isLoading}
-          onPress={() => startGame(GAME_MODE_TYPE.WRITE)}
+          onPress={() => startGame(EGameType.write)}
           disabled={areButtonsDisabled}
         />
       </View>

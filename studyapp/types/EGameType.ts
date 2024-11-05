@@ -1,10 +1,13 @@
-export enum GAME_MODE_TYPE {
-  CHOOSE = 'CHOOSE',
-  WRITE = 'WRITE',
-  NONE = 'NONE',
+export enum EGameType {
+  choose = 'choose',
+  write = 'write',
 }
 
-export enum GAME_CHOOSE_TYPE {
-  FRONT = 'FRONT',
-  BACK = 'BACK',
+export type IGameType = keyof typeof EGameType
+
+export enum EGameMode {
+  front = 'front',
+  back = 'back',
 }
+
+export type IGameMode = keyof typeof EGameMode

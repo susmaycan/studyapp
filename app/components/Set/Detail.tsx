@@ -9,7 +9,7 @@ import { useRouter } from 'expo-router'
 import { Text, StyleSheet, FlatList, View } from 'react-native'
 import { ISet } from '@/types/ISet'
 import SButton from '@/components/SButton'
-import { GAME_MODE_TYPE } from '@/types/EGameType'
+import { EGameType } from '@/types/EGameType'
 import SetGameButtons from './SetGameButtons'
 
 interface SetDetailProps {
