@@ -1,6 +1,3 @@
-import { EFetchMethod } from './EFetchMethod'
-import { IFormData } from './IFormData'
-
 // Input data from components
 export interface IFetchConfig {
   method?: EFetchMethod

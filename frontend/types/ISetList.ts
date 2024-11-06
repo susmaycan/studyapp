@@ -1,5 +1,3 @@
-import { ISet } from '@/types/ISet'
-
 export interface ISetList {
   count: number
   next?: number
