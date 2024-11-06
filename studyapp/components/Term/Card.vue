@@ -15,7 +15,10 @@ const showFront = ref(true)
 <template>
   <div
     class="term-card"
-    :class="{ 'term-card-front': showFront, 'term-card-back': !showFront }"
+    :class="{
+      'bg-sky-300 dark:bg-sky-500': !showFront,
+      'bg-indigo-300 dark:bg-indigo-500': showFront,
+    }"
     @click="onCardClick"
   >
     <p v-if="showFront">{{ term.front }}</p>
@@ -41,12 +44,5 @@ const showFront = ref(true)
 .term-card:hover {
   cursor: pointer;
   opacity: 0.5;
-}
-
-.term-card-front {
-  background-color: darkcyan;
-}
-.term-card-back {
-  background-color: purple;
 }
 </style>

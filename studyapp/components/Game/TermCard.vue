@@ -16,10 +16,10 @@ const onCardClick = () => {
   <div
     class="term-card"
     :class="{
-      'term-card-front': showFront,
-      'term-card-back': !showFront,
-      'term-card-success': isCorrect,
-      'term-card-error': isCorrect === false,
+      'bg-sky-300 dark:bg-sky-500': !showFront,
+      'bg-indigo-300 dark:bg-indigo-500': showFront,
+      'bg-emerald-300 dark:bg-emerald-500': isCorrect,
+      'bg-red-300 dark:bg-red-500': isCorrect === false,
     }"
     @click="onCardClick"
   >
@@ -46,18 +46,5 @@ const onCardClick = () => {
 .term-card:hover {
   cursor: pointer;
   opacity: 0.5;
-}
-
-.term-card-front {
-  background-color: darkcyan;
-}
-.term-card-back {
-  background-color: purple;
-}
-.term-card-success {
-  background-color: green;
-}
-.term-card-error {
-  background-color: red;
 }
 </style>

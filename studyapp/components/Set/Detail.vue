@@ -13,17 +13,18 @@ const emptyTermsLength = computed(() => props.set.terms.length === 0)
 <template>
   <div>
     <div class="flex flex-col text-center items-center mb-3">
-      <s-title class="mb-2">{{ set?.name }}</s-title>
+      <s-title>{{ set?.name }}</s-title>
+      <p class="my-2">{{ set?.description }}</p>
       <set-image
         v-if="set.picture"
+        class="mb-3"
         :url="set.picture"
-        :width="200"
-        :height="200"
+        :width="500"
+        :height="300"
         :alt="`Picture of set ${set.name}`"
       />
-      <p class="mt-2">{{ set?.description }}</p>
       <s-button :is-disabled="emptyTermsLength" @click="startGame">
-        Practice
+        ▶️ Practice
       </s-button>
     </div>
     <div>
