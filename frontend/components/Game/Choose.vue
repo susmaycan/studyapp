@@ -23,11 +23,8 @@ const isCorrectOption = (choice: ITerm) => {
   const userResult = selectedUserResult.value as ITerm
 
   if (!userResult) return null
-
   if (userResult.id === choice.id) return isCorrectResult.value
-
   if (userResult && choice.id === selectedTerm.value?.id) return true
-
   return null
 }
 

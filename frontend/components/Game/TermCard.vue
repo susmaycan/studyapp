@@ -15,13 +15,13 @@ const onCardClick = () => {
 <template>
   <div
     class="term-card h-20 w-full lg:w-72 lg:h-72 m-2 lg:m-5"
-    :class="{
-      'bg-sky-300 dark:bg-sky-500': !showFront,
-      'bg-indigo-300 dark:bg-indigo-500': showFront,
-      'bg-emerald-300 dark:bg-emerald-500': isCorrect,
-      'bg-red-300 dark:bg-red-500': isCorrect === false,
-    }"
     @click="onCardClick"
+    :class="{
+      'bg-indigo-300 dark:bg-indigo-500': showFront && isCorrect === null,
+      'bg-sky-300 dark:bg-sky-500': !showFront && isCorrect === null,
+      'bg-red-300 dark:bg-red-500': isCorrect === false,
+      'bg-emerald-300 dark:bg-emerald-500': isCorrect,
+    }"
   >
     <p v-if="showFront">{{ term.front }}</p>
     <div v-else>
