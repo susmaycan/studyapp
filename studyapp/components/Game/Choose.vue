@@ -6,30 +6,27 @@ const props = defineProps<{
 
 const { mode: propsMode } = toRefs(props)
 const {
-  selectedTerm,
+  canShowList,
   choiceList,
-  optionList,
-  resultList,
-  isFinished,
   initGame,
+  isCorrectResult,
+  isFinished,
   mode,
+  optionList,
+  selectedTerm,
+  selectedUserResult,
   selectChoice,
-  selectedResult,
-  goNext,
+  userResultList,
 } = useGame(props.set.terms, propsMode)
 
-const canShowList = computed(
-  () => !isFinished.value && props.set?.terms?.length
-)
-
-const isCorrect = computed(
-  () => selectedTerm.value?.id === selectedResult.value?.id
-)
-
 const isCorrectOption = (choice: ITerm) => {
-  if (selectedResult.value?.id === choice.id) return isCorrect.value
+  const userResult = selectedUserResult.value as ITerm
 
-  if (selectedResult.value && choice.id === selectedTerm.value?.id) return true
+  if (!userResult) return null
+
+  if (userResult.id === choice.id) return isCorrectResult.value
+
+  if (userResult && choice.id === selectedTerm.value?.id) return true
 
   return null
 }
@@ -74,7 +71,7 @@ const selectOption = (choice: ITerm) => {
     </div>
     <game-result
       v-else-if="isFinished"
-      :results="resultList"
+      :results="userResultList"
       :terms="optionList"
       :mode="mode"
       @init-game="initGame"

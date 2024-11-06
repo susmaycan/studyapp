@@ -2,18 +2,22 @@ export function useGame(termList: ITerm[], mode: Ref<IGameMode>) {
   const optionList = ref<ITerm[]>(termList)
   const index = ref(0)
 
-  const resultList = ref<ITerm[]>([])
+  const userResultList = ref<ITerm[] | string[]>([])
   const choiceList = ref<ITerm[]>([])
 
+  /** Computed */
+  /** Current displayed term to guess */
   const selectedTerm = computed(() =>
     optionList.value.length ? optionList.value[index.value] : null
   )
-
-  const selectedResult = computed(
-    (): ITerm | null => resultList.value[index.value]
+  /** Current correct result */
+  const selectedUserResult = computed(
+    (): ITerm | string | null => userResultList.value[index.value]
   )
 
   const isFinished = computed(() => index.value === optionList.value.length)
+
+  const canShowList = computed(() => !isFinished.value && termList.length)
 
   const shuffleList = (list: ITerm[]) => {
     return list
@@ -36,15 +40,22 @@ export function useGame(termList: ITerm[], mode: Ref<IGameMode>) {
   }
 
   const selectChoice = (term: ITerm) => {
-    const resultListModified = [...resultList.value]
-    resultListModified[index.value] = term
-    resultList.value = resultListModified
+    const userResultListModified = [...userResultList.value] as ITerm[]
+    userResultListModified[index.value] = term
+    userResultList.value = userResultListModified
 
     setTimeout(() => goNext(), 1000)
   }
 
+  const writeResult = (term: string) => {
+    const userResultListModified = [...userResultList.value] as string[]
+    userResultListModified[index.value] = term
+    userResultList.value = userResultListModified
+  }
+
   const goNext = () => {
     index.value = index.value + 1
+
     getChoices(optionList.value, index.value)
   }
   const goBack = () => {
@@ -53,10 +64,21 @@ export function useGame(termList: ITerm[], mode: Ref<IGameMode>) {
 
   const initGame = () => {
     optionList.value = shuffleList(termList)
-    resultList.value = []
+    userResultList.value = []
     index.value = 0
     getChoices(optionList.value, index.value)
   }
+
+  const isCorrectResult = computed(
+    () =>
+      (selectedUserResult.value &&
+        selectedTerm.value?.id === (selectedUserResult.value as ITerm).id) ||
+      (mode.value === EGameMode.front &&
+        selectedUserResult.value === selectedTerm.value?.back) ||
+      selectedUserResult.value === selectedTerm.value?.back_alternatives ||
+      (mode.value === EGameMode.back &&
+        selectedUserResult.value === selectedTerm.value?.front)
+  )
 
   watch(
     () => mode.value,
@@ -66,16 +88,19 @@ export function useGame(termList: ITerm[], mode: Ref<IGameMode>) {
   )
 
   return {
-    selectedTerm,
+    canShowList,
     choiceList,
     goNext,
     goBack,
-    isFinished,
     initGame,
+    isCorrectResult,
+    isFinished,
     mode,
-    selectChoice,
-    resultList,
     optionList,
-    selectedResult,
+    selectedTerm,
+    selectChoice,
+    selectedUserResult,
+    userResultList,
+    writeResult,
   }
 }

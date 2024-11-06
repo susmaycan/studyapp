@@ -1,38 +1,24 @@
 <script setup lang="ts">
 const props = defineProps<{
   set: ISet
+  mode: IGameMode
 }>()
 
+const { mode: propsMode } = toRefs(props)
 const {
-  selectedTerm,
-  optionList,
-  resultList,
-  isFinished,
-  initGame,
-  writeResult,
-  selectedResult,
+  canShowList,
   goNext,
-} = useSetWrittenGame(props.set.terms)
-
-const canShowList = computed(
-  () => !isFinished.value && props.set?.terms?.length
-)
-
-const isCorrect = computed(
-  () =>
-    selectedResult.value === selectedTerm.value?.back ||
-    selectedResult.value === selectedTerm.value?.back_alternatives
-)
+  initGame,
+  isCorrectResult,
+  isFinished,
+  optionList,
+  selectedTerm,
+  selectedUserResult,
+  userResultList,
+  writeResult,
+} = useGame(props.set.terms, propsMode)
 
 const displayAlert = ref(false)
-
-// const isCorrectOption = (choice: ITerm) => {
-//   if (selectedResult.value?.id === choice.id) return isCorrect.value
-
-//   if (selectedResult.value && choice.id === selectedTerm.value?.id) return true
-
-//   return null
-// }
 
 const selectOption = () => {
   displayAlert.value = true
@@ -41,7 +27,7 @@ const selectOption = () => {
       displayAlert.value = false
       goNext()
     },
-    isCorrect.value ? 1000 : 2000
+    isCorrectResult.value ? 1000 : 2000
   )
 }
 
@@ -54,8 +40,18 @@ onMounted(() => {
     <div v-if="canShowList">
       <div class="my-4">
         <p>How do you say</p>
-        <s-title>{{ selectedTerm?.front }}</s-title>
-        <p>You can type it in kana or kanji</p>
+        <s-title v-if="mode === EGameMode.front">
+          {{ selectedTerm?.front }}
+        </s-title>
+        <s-title v-else>
+          {{ selectedTerm?.back }}
+          <span v-if="selectedTerm?.back_alternatives">
+            [{{ selectedTerm.back_alternatives }}]
+          </span>
+        </s-title>
+        <p v-if="mode === EGameMode.front">
+          You can type the back or the alternative back
+        </p>
       </div>
       <div class="my-3">
         <u-input
@@ -63,20 +59,20 @@ onMounted(() => {
           size="sm"
           color="white"
           placeholder="Type your answer"
-          :value="selectedResult"
+          :value="selectedUserResult || ''"
           @update:model-value="writeResult"
         />
-        <s-button @click="selectOption" :is-disabled="!selectedResult">
+        <s-button @click="selectOption" :is-disabled="!selectedUserResult">
           Accept
         </s-button>
       </div>
 
       <u-alert
         v-show="displayAlert"
-        :color="isCorrect ? 'green' : 'red'"
-        :title="isCorrect ? 'Correct! ✅' : 'Incorrect! ❌'"
+        :color="isCorrectResult ? 'green' : 'red'"
+        :title="isCorrectResult ? 'Correct! ✅' : 'Incorrect! ❌'"
         :description="
-          !isCorrect
+          !isCorrectResult
             ? `Correct answer is ${selectedTerm?.back}${
                 selectedTerm?.back_alternatives
                   ? ' [' + selectedTerm?.back_alternatives + ']'
@@ -88,7 +84,7 @@ onMounted(() => {
     </div>
     <game-result
       v-else-if="isFinished"
-      :results="resultList"
+      :results="userResultList"
       :terms="optionList"
       @init-game="initGame"
     />
