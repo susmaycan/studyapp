@@ -14,7 +14,7 @@ const showFront = ref(true)
 </script>
 <template>
   <div
-    class="term-card"
+    class="term-card h-20 w-full lg:w-72 lg:h-72 m-2 lg:m-5"
     :class="{
       'bg-sky-300 dark:bg-sky-500': !showFront,
       'bg-indigo-300 dark:bg-indigo-500': showFront,
@@ -30,15 +30,12 @@ const showFront = ref(true)
 </template>
 <style lang="css" scoped>
 .term-card {
-  width: 200px;
-  height: 200px;
   border-radius: 1rem;
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
   text-align: center;
-  margin: 1rem;
 }
 
 .term-card:hover {

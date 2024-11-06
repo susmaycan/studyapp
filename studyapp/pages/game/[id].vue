@@ -22,33 +22,20 @@ const saveSettings = (savedSettings: IGameSettings) => {
 
 <template>
   <set-skeleton-detail v-if="isLoading" />
-  <div v-else class="flex flex-col justify-center items-center w-full h-full">
-    <s-title class="mb-auto">👾 Learn by playing 👾</s-title>
-    <div v-if="data" class="mb-auto">
-      <div>
-        <game-choose
-          v-if="settings.type === EGameType.choose"
-          :mode="settings.mode"
-          :set="data"
-        />
-        <game-write
-          v-if="settings.type === EGameType.write"
-          :mode="settings.mode"
-          :set="data"
-        />
-      </div>
-      <div class="game-settings-container">
-        <game-settings @accept="saveSettings" />
-      </div>
+  <div v-else>
+    <s-title class="mb-5">👾 Learn by playing 👾</s-title>
+    <game-settings class="my-5" @accept="saveSettings" />
+    <div v-if="data">
+      <game-choose
+        v-if="settings.type === EGameType.choose"
+        :mode="settings.mode"
+        :set="data"
+      />
+      <game-write
+        v-if="settings.type === EGameType.write"
+        :mode="settings.mode"
+        :set="data"
+      />
     </div>
   </div>
 </template>
-
-<style scoped>
-.game-settings-container {
-  position: absolute;
-  right: 0;
-  top: 30%;
-  padding: 2rem;
-}
-</style>

@@ -34,37 +34,38 @@ const play = () => {
 </script>
 
 <template>
-  <div class="text-center flex flex-col gap-5 items-center">
-    <h1 class="tex text-3xl">⚙️ Settings</h1>
-    <u-radio-group
-      :model-value="gameSettings.type"
-      :options="gameTypeOptions"
-      @change="gameSettings.type = $event"
-    >
-      <template #label="{ option }">
-        <p class="text-base">
-          {{ option.label }}
-        </p>
-      </template>
-      <template #legend>
-        <span class="text-lg font-bold">Game type</span>
-      </template>
-    </u-radio-group>
-    <u-radio-group
-      :model-value="gameSettings.mode"
-      :options="gameModeOptions"
-      @change="gameSettings.mode = $event"
-    >
-      <template #label="{ option }">
-        <p class="text-base">
-          {{ option.label }}
-        </p>
-      </template>
-      <template #legend>
-        <span class="text-lg font-bold">Game mode</span>
-      </template></u-radio-group
-    >
-    <u-button @click="play"> 🔄 Generate game</u-button>
+  <div class="text-center w-full">
+    <div class="flex justify-center gap-10 items-center w-full">
+      <u-radio-group
+        :model-value="gameSettings.type"
+        :options="gameTypeOptions"
+        @change="gameSettings.type = $event"
+      >
+        <template #label="{ option }">
+          <p class="text-sm lg:text-base">
+            {{ option.label }}
+          </p>
+        </template>
+        <template #legend>
+          <span class="text-md lg:text-lg font-bold">Type</span>
+        </template>
+      </u-radio-group>
+      <u-radio-group
+        :model-value="gameSettings.mode"
+        :options="gameModeOptions"
+        @change="gameSettings.mode = $event"
+      >
+        <template #label="{ option }">
+          <p class="text-sm lg:text-base">
+            {{ option.label }}
+          </p>
+        </template>
+        <template #legend>
+          <span class="text-md lg:text-lg font-bold">Mode</span>
+        </template></u-radio-group
+      >
+      <u-button @click="play"> ▶️ Play</u-button>
+    </div>
   </div>
 </template>
 

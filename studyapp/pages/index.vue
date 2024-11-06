@@ -1,5 +1,5 @@
 <template>
-  <div>Home page!</div>
+  <div>TBD</div>
 </template>
 
 <script setup lang="ts"></script>

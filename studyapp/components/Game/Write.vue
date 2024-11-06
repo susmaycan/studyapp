@@ -31,12 +31,27 @@ const selectOption = () => {
   )
 }
 
+const alertText = computed(() => {
+  if (!selectedTerm.value) return ''
+
+  let correctAnswer = selectedTerm.value.front
+
+  if (props.mode === EGameMode.front) {
+    const alternativeBack = selectedTerm.value.back_alternatives
+      ? ` [${selectedTerm.value.back_alternatives}]`
+      : ''
+    correctAnswer = selectedTerm?.value.back + alternativeBack
+  }
+
+  return `Correct answer is ${correctAnswer}`
+})
+
 onMounted(() => {
   initGame()
 })
 </script>
 <template>
-  <div>
+  <div class="mt-5">
     <div v-if="canShowList">
       <div class="my-4">
         <p>How do you say</p>
@@ -53,33 +68,23 @@ onMounted(() => {
           You can type the back or the alternative back
         </p>
       </div>
-      <div class="my-3">
-        <u-input
-          class="mb-3"
-          size="sm"
-          color="white"
-          placeholder="Type your answer"
-          :value="selectedUserResult || ''"
-          @update:model-value="writeResult"
-        />
-        <s-button @click="selectOption" :is-disabled="!selectedUserResult">
-          Accept
-        </s-button>
-      </div>
+      <u-input
+        class="mb-3"
+        size="sm"
+        color="white"
+        placeholder="Type your answer"
+        :value="selectedUserResult || ''"
+        @update:model-value="writeResult"
+      />
+      <s-button @click="selectOption" :is-disabled="!selectedUserResult">
+        Accept
+      </s-button>
 
       <u-alert
         v-show="displayAlert"
         :color="isCorrectResult ? 'green' : 'red'"
         :title="isCorrectResult ? 'Correct! ✅' : 'Incorrect! ❌'"
-        :description="
-          !isCorrectResult
-            ? `Correct answer is ${selectedTerm?.back}${
-                selectedTerm?.back_alternatives
-                  ? ' [' + selectedTerm?.back_alternatives + ']'
-                  : ''
-              }`
-            : undefined
-        "
+        :description="alertText"
       />
     </div>
     <game-result

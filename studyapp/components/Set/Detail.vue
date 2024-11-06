@@ -19,7 +19,7 @@ const emptyTermsLength = computed(() => props.set.terms.length === 0)
         v-if="set.picture"
         class="mb-3"
         :url="set.picture"
-        :width="500"
+        :width="300"
         :height="300"
         :alt="`Picture of set ${set.name}`"
       />
