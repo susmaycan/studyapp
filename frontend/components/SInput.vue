@@ -1,0 +1,39 @@
+<script setup lang="ts">
+defineProps<{
+  icon?: string
+  isDisabled?: boolean
+  isLoading?: boolean
+  placeholder?: string
+  value: string
+}>()
+
+const emits = defineEmits(['change'])
+
+const onChange = (newValue: string) => {
+  emits('change', newValue)
+}
+</script>
+<template>
+  <u-input
+    :disabled="isLoading"
+    :icon="icon"
+    :loading="isLoading"
+    :model-value="value"
+    :placeholder="placeholder"
+    size="lg"
+    :ui="{ icon: { trailing: { pointer: '' } } }"
+    @change="onChange"
+  >
+    <template #trailing>
+      <u-button
+        v-show="value"
+        color="gray"
+        :disabled="isLoading"
+        icon="i-heroicons-x-mark-20-solid"
+        variant="link"
+        @click.stop="onChange('')"
+      />
+    </template>
+  </u-input>
+</template>
+<style scoped></style>

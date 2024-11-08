@@ -17,7 +17,7 @@ const onCardClick = () => {
       :height="180"
       :alt="`Picture of set ${set.name}`"
     />
-    <p>{{ set.name }}</p>
+    <h2 class="text-lg pt-1 font-bold">{{ set.name }}</h2>
   </div>
 </template>
 <style lang="css" scoped>

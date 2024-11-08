@@ -1,6 +1,7 @@
 from rest_framework import mixins, status, viewsets
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
+from django.db.models import Q
 
 from set.models import Set
 from set.serializers import SetCreateSerializer, SetSerializer
@@ -15,7 +16,6 @@ class SetViewSet(
     viewsets.GenericViewSet,
 ):
     serializer_class = SetSerializer
-    queryset = Set.objects.all().order_by("name")
     pagination_class = BasePagination
 
     def get_permissions(self):
@@ -37,3 +37,13 @@ class SetViewSet(
         serializer.is_valid(raise_exception=True)
         serializer.save()
         return Response(status=status.HTTP_201_CREATED)
+
+    def get_queryset(self):
+        search_word = self.request.query_params.get("search")
+        queryset = Set.objects.all().order_by("name")
+
+        if search_word:
+            queryset = queryset.filter(
+                Q(name__icontains=search_word)
+            )
+        return queryset
