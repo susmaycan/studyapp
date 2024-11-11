@@ -12,10 +12,17 @@ p {
   font-size: 15px;
 }
 @media screen and (-webkit-min-device-pixel-ratio: 0) {
+  select:focus,
+  textarea:focus,
+  input:focus {
+    font-size: 16px !important;
+  }
+}
+@media screen and (-webkit-min-device-pixel-ratio: 0) {
   select,
   textarea,
   input {
-    font-size: 16px;
+    font-size: 16px !important;
   }
 }
 </style>
