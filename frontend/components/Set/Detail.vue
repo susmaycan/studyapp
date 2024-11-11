@@ -4,11 +4,13 @@ const props = defineProps<{
 }>()
 
 const router = useRouter()
-const startGame = (mode: string) => {
+const startGame = () => {
   router.push(`/game/${props.set?.id}`)
 }
 
 const emptyTermsLength = computed(() => props.set.terms.length === 0)
+
+const { voiceListCode } = useSpeechAPI()
 </script>
 <template>
   <div>
@@ -26,6 +28,9 @@ const emptyTermsLength = computed(() => props.set.terms.length === 0)
       <s-button :is-disabled="emptyTermsLength" @click="startGame">
         ▶️ Practice
       </s-button>
+    </div>
+    <div>
+      {{ voiceListCode }}
     </div>
     <div>
       <p v-if="emptyTermsLength">No terms in this set.</p>

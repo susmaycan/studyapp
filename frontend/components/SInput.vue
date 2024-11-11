@@ -5,7 +5,7 @@ defineProps<{
   isDisabled?: boolean
   isLoading?: boolean
   placeholder?: string
-  value: string
+  value?: string
 }>()
 
 const emits = defineEmits(['change', 'input'])

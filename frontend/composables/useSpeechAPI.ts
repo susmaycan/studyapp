@@ -4,6 +4,9 @@ export function useSpeechAPI() {
     window ? new window.SpeechSynthesisUtterance() : null
   )
   const voiceList = computed(() => synth.value?.getVoices() || [])
+  const voiceListCode = computed(() =>
+    (synth.value?.getVoices() || []).map((voice) => voice.lang)
+  )
 
   const japaneseVoice = computed(() =>
     voiceList.value.find(
@@ -33,5 +36,5 @@ export function useSpeechAPI() {
     synth.value.speak(speech.value)
   }
 
-  return { voiceList, isCompatible, speak, japaneseVoice }
+  return { voiceList, voiceListCode, isCompatible, speak, japaneseVoice }
 }
