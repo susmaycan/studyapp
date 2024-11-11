@@ -68,13 +68,11 @@ onMounted(() => {
           You can type the back or the alternative back
         </p>
       </div>
-      <u-input
+      <s-input
         class="mb-3"
-        size="sm"
-        color="white"
         placeholder="Type your answer"
-        :value="selectedUserResult || ''"
-        @update:model-value="writeResult"
+        :value="selectedUserResult as string || ''"
+        @input="writeResult"
       />
       <s-button @click="selectOption" :is-disabled="!selectedUserResult">
         Accept

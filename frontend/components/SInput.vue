@@ -7,10 +7,13 @@ defineProps<{
   value: string
 }>()
 
-const emits = defineEmits(['change'])
+const emits = defineEmits(['change', 'input'])
 
 const onChange = (newValue: string) => {
   emits('change', newValue)
+}
+const onInput = (newValue: string) => {
+  emits('input', newValue)
 }
 </script>
 <template>
@@ -23,6 +26,7 @@ const onChange = (newValue: string) => {
     size="lg"
     :ui="{ icon: { trailing: { pointer: '' } } }"
     @change="onChange"
+    @update:model-value="onInput"
   >
     <template #trailing>
       <u-button

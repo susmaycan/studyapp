@@ -48,6 +48,7 @@ export function useGame(termList: ITerm[], mode: Ref<IGameMode>) {
   }
 
   const writeResult = (term: string) => {
+    debugger
     const userResultListModified = [...userResultList.value] as string[]
     userResultListModified[index.value] = term
     userResultList.value = userResultListModified
