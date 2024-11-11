@@ -11,4 +11,11 @@
 p {
   font-size: 15px;
 }
+@media screen and (-webkit-min-device-pixel-ratio: 0) {
+  select,
+  textarea,
+  input {
+    font-size: 16px;
+  }
+}
 </style>

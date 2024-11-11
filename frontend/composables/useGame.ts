@@ -85,7 +85,10 @@ export function useGame(
       const userInputValue = userInput as ITerm
 
       return userInputValue.id === result.id
-    } else {
+    } else if (
+      gameType === EGameType.write ||
+      gameType === EGameType.listening
+    ) {
       const userInputValue = (userInput as string).toLowerCase()
 
       if (mode.value === EGameMode.front)

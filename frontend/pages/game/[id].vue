@@ -36,6 +36,11 @@ const saveSettings = (savedSettings: IGameSettings) => {
         :mode="settings.mode"
         :set="data"
       />
+      <game-listening
+        v-if="settings.type === EGameType.listening"
+        :mode="settings.mode"
+        :set="data"
+      />
     </div>
   </div>
 </template>

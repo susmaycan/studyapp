@@ -15,16 +15,18 @@ const {
   selectedTerm,
   selectedUserResult,
   writeResult,
-} = useGame(props.set.terms, propsMode, EGameType.write)
+} = useGame(props.set.terms, propsMode, EGameType.listening)
 
 const { speak, isCompatible } = useSpeechAPI()
 
 const displayAlert = ref(false)
 
+const playWord = () => {
+  speak(selectedTerm.value!.back_alternatives || selectedTerm.value!.back)
+}
+
 const selectOption = () => {
   displayAlert.value = true
-  if (isCompatible)
-    speak(selectedTerm.value!.back_alternatives || selectedTerm.value!.back)
   setTimeout(
     () => {
       displayAlert.value = false
@@ -53,21 +55,27 @@ const alertText = computed(() => {
 onMounted(() => {
   initGame()
 })
+
+watch(
+  () => selectedTerm.value,
+  () => {
+    playWord()
+  }
+)
 </script>
 <template>
   <div class="mt-5">
     <div v-if="canShowList">
       <div class="my-4">
         <p>How do you say</p>
-        <s-title v-if="mode === EGameMode.front">
-          {{ selectedTerm?.front }}
-        </s-title>
-        <s-title v-else>
-          {{ selectedTerm?.back }}
-          <span v-if="selectedTerm?.back_alternatives">
-            [{{ selectedTerm.back_alternatives }}]
-          </span>
-        </s-title>
+        <u-button
+          icon="i-heroicons-speaker-wave"
+          size="xl"
+          color="primary"
+          square
+          variant="solid"
+          @click="playWord"
+        />
         <p v-if="mode === EGameMode.front">
           You can type the back or the alternative back
         </p>

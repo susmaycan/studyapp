@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { GameSettings } from '#build/components'
+
 const emits = defineEmits(['accept'])
 
 const gameTypeOptions = [
@@ -10,9 +12,13 @@ const gameTypeOptions = [
     value: EGameType.write,
     label: 'Write',
   },
+  {
+    value: EGameType.listening,
+    label: 'Listening',
+  },
 ]
 
-const gameModeOptions = [
+const gameModeOptions = computed(() => [
   {
     value: EGameMode.front,
     label: 'Front',
@@ -21,7 +27,7 @@ const gameModeOptions = [
     value: EGameMode.back,
     label: 'Back',
   },
-]
+])
 
 const gameSettings = ref<IGameSettings>({
   type: EGameType.choose,
@@ -62,8 +68,8 @@ const play = () => {
         </template>
         <template #legend>
           <span class="text-md lg:text-lg font-bold">Mode</span>
-        </template></u-radio-group
-      >
+        </template>
+      </u-radio-group>
       <u-button @click="play"> ▶️ Play</u-button>
     </div>
   </div>

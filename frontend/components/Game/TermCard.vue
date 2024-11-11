@@ -2,7 +2,7 @@
 const props = defineProps<{
   term: ITerm
   mode: IGameMode
-  isCorrect: boolean | null
+  isCorrect?: boolean | null
 }>()
 const emits = defineEmits(['selectOption'])
 

@@ -1,6 +1,7 @@
 export enum EGameType {
   choose = 'choose',
   write = 'write',
+  listening = 'listening',
 }
 
 export type IGameType = keyof typeof EGameType
