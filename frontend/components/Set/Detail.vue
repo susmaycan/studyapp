@@ -32,6 +32,7 @@ const { voiceListCode, japaneseVoice } = useSpeechAPI()
     <div>
       {{ japaneseVoice }}
     </div>
+    <div>
       {{ voiceListCode }}
     </div>
     <div>
