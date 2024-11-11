@@ -1,40 +1,8 @@
 <script setup lang="ts">
-const props = defineProps<{
-  mode: IGameMode
-  results: ITerm[] | string[]
-  gameType: IGameType
-  terms: ITerm[]
+defineProps<{
+  stats: IGameStats
 }>()
 const emits = defineEmits(['initGame'])
-
-const stats = computed(() => {
-  let stats = { ok: 0, ko: 0, total: props.terms.length }
-  props.terms.forEach((term, index) => {
-    let isCorrect = false
-
-    if (props.gameType === EGameType.choose) {
-      const result = props.results[index] as ITerm
-      if (props.mode === EGameMode.front && term.back === result.back)
-        isCorrect = true
-      else if (props.mode === EGameMode.back && term.front === result.front)
-        isCorrect = true
-    } else {
-      const result = props.results[index] as string
-
-      if (props.mode === EGameMode.back && term.front === result)
-        isCorrect = true
-      else if (
-        (props.mode === EGameMode.front && term.back === result) ||
-        (term?.back_alternatives?.split(',') || []).includes(result)
-      )
-        isCorrect = true
-    }
-
-    if (isCorrect) stats.ok++
-    else stats.ko++
-  })
-  return stats
-})
 </script>
 <template>
   <div>

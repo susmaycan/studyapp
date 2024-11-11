@@ -4,6 +4,7 @@ export function useSpeechAPI() {
     window ? new window.SpeechSynthesisUtterance() : null
   )
   const voiceList = computed(() => synth.value?.getVoices() || [])
+
   const voiceListCode = computed(() =>
     (synth.value?.getVoices() || []).map((voice) => voice.lang)
   )

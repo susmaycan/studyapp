@@ -9,8 +9,6 @@ const startGame = () => {
 }
 
 const emptyTermsLength = computed(() => props.set.terms.length === 0)
-
-const { voiceListCode, japaneseVoice } = useSpeechAPI()
 </script>
 <template>
   <div>
@@ -28,12 +26,6 @@ const { voiceListCode, japaneseVoice } = useSpeechAPI()
       <s-button :is-disabled="emptyTermsLength" @click="startGame">
         ▶️ Practice
       </s-button>
-    </div>
-    <div>
-      {{ japaneseVoice }}
-    </div>
-    <div>
-      {{ voiceListCode }}
     </div>
     <div>
       <p v-if="emptyTermsLength">No terms in this set.</p>

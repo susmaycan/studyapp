@@ -8,16 +8,15 @@ const { mode: propsMode } = toRefs(props)
 const {
   canShowList,
   choiceList,
+  gameStats,
   initGame,
   isCorrectResult,
   isFinished,
   mode,
-  optionList,
   selectedTerm,
   selectedUserResult,
   selectChoice,
-  userResultList,
-} = useGame(props.set.terms, propsMode)
+} = useGame(props.set.terms, propsMode, EGameType.choose)
 
 const isCorrectOption = (choice: ITerm) => {
   const userResult = selectedUserResult.value as ITerm
@@ -28,14 +27,14 @@ const isCorrectOption = (choice: ITerm) => {
   return null
 }
 
-const { speak } = useSpeechAPI()
+const { speak, isCompatible } = useSpeechAPI()
 
 onMounted(() => {
   initGame()
 })
 
 const selectOption = (choice: ITerm) => {
-  if (selectedTerm.value?.back)
+  if (isCompatible)
     speak(selectedTerm.value!.back_alternatives || selectedTerm.value!.back)
   selectChoice(choice)
 }
@@ -68,10 +67,7 @@ const selectOption = (choice: ITerm) => {
     </div>
     <game-result
       v-else-if="isFinished"
-      :game-type="EGameType.choose"
-      :mode="mode"
-      :results="userResultList"
-      :terms="optionList"
+      :stats="gameStats"
       @init-game="initGame"
     />
   </div>

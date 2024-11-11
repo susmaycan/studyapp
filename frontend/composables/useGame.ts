@@ -1,4 +1,8 @@
-export function useGame(termList: ITerm[], mode: Ref<IGameMode>) {
+export function useGame(
+  termList: ITerm[],
+  mode: Ref<IGameMode>,
+  gameType: IGameType
+) {
   const optionList = ref<ITerm[]>(termList)
   const index = ref(0)
 
@@ -71,16 +75,43 @@ export function useGame(termList: ITerm[], mode: Ref<IGameMode>) {
 
   const isCorrectResult = computed(
     () =>
-      (selectedUserResult.value &&
-        selectedTerm.value?.id === (selectedUserResult.value as ITerm).id) ||
-      (mode.value === EGameMode.front &&
-        selectedUserResult.value === selectedTerm.value?.back) ||
-      (selectedTerm.value?.back_alternatives?.split(',') || []).includes(
-        selectedUserResult.value as string
-      ) ||
-      (mode.value === EGameMode.back &&
-        selectedUserResult.value === selectedTerm.value?.front)
+      !!selectedUserResult.value &&
+      !!selectedTerm.value &&
+      checkCorrectResult(selectedUserResult.value, selectedTerm.value)
   )
+
+  const checkCorrectResult = (userInput: ITerm | string, result: ITerm) => {
+    if (gameType === EGameType.choose) {
+      const userInputValue = userInput as ITerm
+
+      return userInputValue.id === result.id
+    } else {
+      const userInputValue = (userInput as string).toLowerCase()
+
+      if (mode.value === EGameMode.front)
+        return (
+          userInputValue === result.back.toLowerCase() ||
+          (
+            result?.back_alternatives
+              ?.split(',')
+              .map((alternative) => alternative.toLowerCase()) || []
+          ).includes(userInputValue)
+        )
+      else return userInputValue === result.front.toLowerCase()
+    }
+  }
+
+  const gameStats = computed<IGameStats>(() => {
+    let stats = { ok: 0, ko: 0, total: optionList.value.length }
+    optionList.value.forEach((term, index) => {
+      let isCorrect = checkCorrectResult(userResultList.value[index], term)
+
+      if (isCorrect) stats.ok++
+      else stats.ko++
+    })
+
+    return stats
+  })
 
   watch(
     () => mode.value,
@@ -91,7 +122,9 @@ export function useGame(termList: ITerm[], mode: Ref<IGameMode>) {
 
   return {
     canShowList,
+    checkCorrectResult,
     choiceList,
+    gameStats,
     goNext,
     goBack,
     initGame,

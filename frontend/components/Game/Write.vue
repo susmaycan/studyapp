@@ -7,21 +7,24 @@ const props = defineProps<{
 const { mode: propsMode } = toRefs(props)
 const {
   canShowList,
+  gameStats,
   goNext,
   initGame,
   isCorrectResult,
   isFinished,
-  optionList,
   selectedTerm,
   selectedUserResult,
-  userResultList,
   writeResult,
-} = useGame(props.set.terms, propsMode)
+} = useGame(props.set.terms, propsMode, EGameType.write)
+
+const { speak, isCompatible } = useSpeechAPI()
 
 const displayAlert = ref(false)
 
 const selectOption = () => {
   displayAlert.value = true
+  if (isCompatible)
+    speak(selectedTerm.value!.back_alternatives || selectedTerm.value!.back)
   setTimeout(
     () => {
       displayAlert.value = false
@@ -89,10 +92,7 @@ onMounted(() => {
     </div>
     <game-result
       v-else-if="isFinished"
-      :game-type="EGameType.write"
-      :mode="mode"
-      :results="userResultList"
-      :terms="optionList"
+      :stats="gameStats"
       @init-game="initGame"
     />
   </div>
