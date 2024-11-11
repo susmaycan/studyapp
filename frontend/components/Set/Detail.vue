@@ -10,7 +10,7 @@ const startGame = () => {
 
 const emptyTermsLength = computed(() => props.set.terms.length === 0)
 
-const { voiceListCode } = useSpeechAPI()
+const { voiceListCode, japaneseVoice } = useSpeechAPI()
 </script>
 <template>
   <div>
@@ -30,6 +30,8 @@ const { voiceListCode } = useSpeechAPI()
       </s-button>
     </div>
     <div>
+      {{ japaneseVoice }}
+    </div>
       {{ voiceListCode }}
     </div>
     <div>

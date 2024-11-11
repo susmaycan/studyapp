@@ -13,8 +13,11 @@ export function useSpeechAPI() {
       (voice) =>
         voice.lang === 'jp' ||
         voice.lang === 'ja' ||
+        voice.lang === 'ja-JP' ||
         voice.name.includes('Japanese') ||
-        voice.name.includes('japanese')
+        voice.name.includes('japanese') ||
+        voice.name.includes('jp') ||
+        voice.name.includes('JP')
     )
   )
 
