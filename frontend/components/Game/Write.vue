@@ -87,6 +87,8 @@ onMounted(() => {
     </div>
     <game-result
       v-else-if="isFinished"
+      :game-type="EGameType.write"
+      :mode="mode"
       :results="userResultList"
       :terms="optionList"
       @init-game="initGame"

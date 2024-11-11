@@ -76,7 +76,9 @@ export function useGame(termList: ITerm[], mode: Ref<IGameMode>) {
         selectedTerm.value?.id === (selectedUserResult.value as ITerm).id) ||
       (mode.value === EGameMode.front &&
         selectedUserResult.value === selectedTerm.value?.back) ||
-      selectedUserResult.value === selectedTerm.value?.back_alternatives ||
+      (selectedTerm.value?.back_alternatives?.split(',') || []).includes(
+        selectedUserResult.value as string
+      ) ||
       (mode.value === EGameMode.back &&
         selectedUserResult.value === selectedTerm.value?.front)
   )

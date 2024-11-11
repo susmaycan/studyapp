@@ -68,9 +68,10 @@ const selectOption = (choice: ITerm) => {
     </div>
     <game-result
       v-else-if="isFinished"
+      :game-type="EGameType.choose"
+      :mode="mode"
       :results="userResultList"
       :terms="optionList"
-      :mode="mode"
       @init-game="initGame"
     />
   </div>

@@ -39,11 +39,11 @@ class SetCreateSerializer(serializers.ModelSerializer):
         term_ids = []
         for term in term_list:
             if term:
-                term_split = term.split(",")
+                term_split = term.split(":")
                 term_front = term_split[2]
-                term_back_alternative = term_split[1]
+                term_back_alternatives = term_split[1]
                 term_back = term_split[0]
-                created_term = Term.objects.create(front=term_front, back=term_back, back_alternatives=term_back_alternative)
+                created_term = Term.objects.create(front=term_front, back=term_back, back_alternatives=term_back_alternatives)
                 term_ids.append(created_term.id)
 
         created_set = Set.objects.create(**data)
