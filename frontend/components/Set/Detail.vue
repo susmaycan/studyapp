@@ -5,7 +5,7 @@ const props = defineProps<{
 
 const router = useRouter()
 const startGame = (mode: string) => {
-  router.push(`/game/${props.set?.id}?mode=${mode}`)
+  router.push(`/game/${props.set?.id}`)
 }
 
 const emptyTermsLength = computed(() => props.set.terms.length === 0)

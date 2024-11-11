@@ -26,6 +26,7 @@ const selectOption = () => {
     () => {
       displayAlert.value = false
       goNext()
+      document.getElementById('write-game-input')?.focus()
     },
     isCorrectResult.value ? 1000 : 2000
   )
@@ -70,6 +71,7 @@ onMounted(() => {
       </div>
       <s-input
         class="mb-3"
+        id="write-game-input"
         placeholder="Type your answer"
         :value="selectedUserResult as string || ''"
         @input="writeResult"

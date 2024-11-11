@@ -1,6 +1,7 @@
 <script setup lang="ts">
 defineProps<{
   icon?: string
+  id?: string
   isDisabled?: boolean
   isLoading?: boolean
   placeholder?: string
@@ -20,6 +21,7 @@ const onInput = (newValue: string) => {
   <u-input
     :disabled="isLoading"
     :icon="icon"
+    :id="id"
     :loading="isLoading"
     :model-value="value"
     :placeholder="placeholder"
