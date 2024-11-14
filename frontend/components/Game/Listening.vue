@@ -69,9 +69,9 @@ watch(
       <div class="my-4">
         <p>How do you say</p>
         <u-button
+          color="primary"
           icon="i-heroicons-speaker-wave"
           size="xl"
-          color="primary"
           square
           variant="solid"
           @click="playWord"
@@ -85,7 +85,7 @@ watch(
         id="write-game-input"
         placeholder="Type your answer"
         :value="selectedUserResult as string || ''"
-        @enter="selectOption"
+        @enter="selectedUserResult ? selectOption() : null"
         @input="writeResult"
       />
       <s-button @click="selectOption" :is-disabled="!selectedUserResult">
@@ -94,8 +94,8 @@ watch(
       <u-alert
         v-show="displayAlert"
         :color="isCorrectResult ? 'green' : 'red'"
-        :title="isCorrectResult ? 'Correct! ✅' : 'Incorrect! ❌'"
         :description="alertText"
+        :title="isCorrectResult ? 'Correct! ✅' : 'Incorrect! ❌'"
       />
     </div>
     <game-result

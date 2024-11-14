@@ -22,14 +22,14 @@ const onEnter = () => {
 </script>
 <template>
   <u-input
-    :disabled="isLoading"
+    :disabled="isLoading || isDisabled"
     :icon="icon"
     :id="id"
     :loading="isLoading"
     :model-value="value"
     :placeholder="placeholder"
-    size="lg"
     :ui="{ icon: { trailing: { pointer: '' } } }"
+    size="lg"
     @change="onChange"
     @keypress.enter="onEnter"
     @update:model-value="onInput"
@@ -37,8 +37,8 @@ const onEnter = () => {
     <template #trailing>
       <u-button
         v-show="value"
-        color="gray"
         :disabled="isLoading"
+        color="gray"
         icon="i-heroicons-x-mark-20-solid"
         variant="link"
         @click.stop="onChange('')"

@@ -77,7 +77,7 @@ onMounted(() => {
         id="write-game-input"
         placeholder="Type your answer"
         :value="selectedUserResult as string || ''"
-        @enter="selectOption"
+        @enter="selectedUserResult ? selectOption() : null"
         @input="writeResult"
       />
       <s-button @click="selectOption" :is-disabled="!selectedUserResult">
@@ -86,8 +86,8 @@ onMounted(() => {
       <u-alert
         v-show="displayAlert"
         :color="isCorrectResult ? 'green' : 'red'"
-        :title="isCorrectResult ? 'Correct! ✅' : 'Incorrect! ❌'"
         :description="alertText"
+        :title="isCorrectResult ? 'Correct! ✅' : 'Incorrect! ❌'"
       />
     </div>
     <game-result

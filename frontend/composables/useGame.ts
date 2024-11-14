@@ -80,6 +80,13 @@ export function useGame(
       checkCorrectResult(selectedUserResult.value, selectedTerm.value)
   )
 
+  const formatWord = (value: string) =>
+    value
+      .replaceAll(' ', '')
+      .replaceAll('.', '')
+      .replaceAll('　', '')
+      .toLowerCase()
+
   const checkCorrectResult = (userInput: ITerm | string, result: ITerm) => {
     if (gameType === EGameType.choose) {
       const userInputValue = userInput as ITerm
@@ -89,18 +96,18 @@ export function useGame(
       gameType === EGameType.write ||
       gameType === EGameType.listening
     ) {
-      const userInputValue = (userInput as string).toLowerCase()
+      const userInputValue = formatWord(userInput as string)
 
       if (mode.value === EGameMode.front)
         return (
-          userInputValue === result.back.toLowerCase() ||
+          userInputValue === formatWord(result.back) ||
           (
             result?.back_alternatives
               ?.split(',')
-              .map((alternative) => alternative.toLowerCase()) || []
+              .map((alternative) => formatWord(alternative)) || []
           ).includes(userInputValue)
         )
-      else return userInputValue === result.front.toLowerCase()
+      else return userInputValue === formatWord(result.front)
     }
   }
 
@@ -128,15 +135,15 @@ export function useGame(
     checkCorrectResult,
     choiceList,
     gameStats,
-    goNext,
     goBack,
+    goNext,
     initGame,
     isCorrectResult,
     isFinished,
     mode,
     optionList,
-    selectedTerm,
     selectChoice,
+    selectedTerm,
     selectedUserResult,
     userResultList,
     writeResult,
