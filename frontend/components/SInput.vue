@@ -37,7 +37,7 @@ const onEnter = () => {
     <template #trailing>
       <u-button
         v-show="value"
-        :disabled="isLoading"
+        :disabled="isLoading || isDisabled"
         color="gray"
         icon="i-heroicons-x-mark-20-solid"
         variant="link"
