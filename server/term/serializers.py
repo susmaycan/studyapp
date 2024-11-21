@@ -9,7 +9,14 @@ class TermSerializer(serializers.ModelSerializer):
     class Meta:
         model = Term
         fields = ("id", "front", "back", "description", "progress", "back_alternatives")
-        read_only_fields = ("id", "front", "back", "description", "progress", "back_alternatives")
+        read_only_fields = (
+            "id",
+            "front",
+            "back",
+            "description",
+            "progress",
+            "back_alternatives",
+        )
 
 
 class TermSetSerializer(serializers.ModelSerializer):

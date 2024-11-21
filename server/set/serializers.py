@@ -17,6 +17,13 @@ class SetSerializer(serializers.ModelSerializer):
         read_only_fields = ("id", "name", "description", "terms", "picture")
 
 
+class SetListSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Set
+        fields = ("id", "name", "description", "picture")
+        read_only_fields = ("id", "name", "description", "picture")
+
+
 class SetCreateSerializer(serializers.ModelSerializer):
     name = serializers.CharField(max_length=50)
     description = serializers.CharField(max_length=100, required=False)
@@ -43,7 +50,11 @@ class SetCreateSerializer(serializers.ModelSerializer):
                 term_front = term_split[2]
                 term_back_alternatives = term_split[1]
                 term_back = term_split[0]
-                created_term = Term.objects.create(front=term_front, back=term_back, back_alternatives=term_back_alternatives)
+                created_term = Term.objects.create(
+                    front=term_front,
+                    back=term_back,
+                    back_alternatives=term_back_alternatives,
+                )
                 term_ids.append(created_term.id)
 
         created_set = Set.objects.create(**data)

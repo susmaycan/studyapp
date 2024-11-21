@@ -1,10 +1,11 @@
-from rest_framework import mixins, status, viewsets
+from django.db.models import Q
+from rest_framework import filters, mixins, status, viewsets
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
-from django.db.models import Q
 
 from set.models import Set
-from set.serializers import SetCreateSerializer, SetSerializer
+from set.serializers import (SetCreateSerializer, SetListSerializer,
+                             SetSerializer)
 from utils.constants import RestFrameworkActions
 from utils.pagination import BasePagination
 
@@ -15,8 +16,19 @@ class SetViewSet(
     mixins.CreateModelMixin,
     viewsets.GenericViewSet,
 ):
-    serializer_class = SetSerializer
     pagination_class = BasePagination
+    queryset = Set.objects.all().order_by("name")
+    filter_backends = [filters.SearchFilter, filters.OrderingFilter]
+    search_fields = ["name", "description"]
+    ordering_fields = ["name", "created_at"]
+    ordering = ["name"]
+
+    def get_serializer_class(self):
+        if self.action in [
+            RestFrameworkActions.LIST,
+        ]:
+            return SetListSerializer
+        return SetSerializer
 
     def get_permissions(self):
         permission_classes = []
@@ -37,13 +49,3 @@ class SetViewSet(
         serializer.is_valid(raise_exception=True)
         serializer.save()
         return Response(status=status.HTTP_201_CREATED)
-
-    def get_queryset(self):
-        search_word = self.request.query_params.get("search")
-        queryset = Set.objects.all().order_by("name")
-
-        if search_word:
-            queryset = queryset.filter(
-                Q(name__icontains=search_word)
-            )
-        return queryset

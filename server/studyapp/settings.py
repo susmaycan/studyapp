@@ -54,6 +54,7 @@ INSTALLED_APPS = [
     "term",
     "user",
     "djongo",
+    "django_filters",
 ]
 
 MIDDLEWARE = [
@@ -100,13 +101,11 @@ DATABASES = {
     #     "HOST": env("POSTGRES_HOST"),
     #     "PORT": env("POSTGRES_PORT"),
     # },
-    'default': {
-        'ENGINE': 'djongo',
-        'NAME': env("MONGO_DB"),
-        'ENFORCE_SCHEMA': False,
-        'CLIENT': {
-            'host': env("MONGO_URI")
-        }
+    "default": {
+        "ENGINE": "djongo",
+        "NAME": env("MONGO_DB"),
+        "ENFORCE_SCHEMA": False,
+        "CLIENT": {"host": env("MONGO_URI")},
     }
 }
 
@@ -158,9 +157,10 @@ REST_FRAMEWORK = {
     "DEFAULT_RENDERER_CLASSES": ("rest_framework.renderers.JSONRenderer",),
     "DEFAULT_AUTHENTICATION_CLASSES": (
         "rest_framework.authentication.TokenAuthentication",
-        'rest_framework.authentication.BasicAuthentication',  # enables simple command line authentication
+        "rest_framework.authentication.BasicAuthentication",  # enables simple command line authentication
     ),
     "DEFAULT_PAGINATION_CLASS": "rest_framework.pagination.LimitOffsetPagination",
     "PAGE_SIZE": 10,
     "DATETIME_FORMAT": "%Y-%m-%d %H:%M:%S",
+    "DEFAULT_FILTER_BACKENDS": ["django_filters.rest_framework.DjangoFilterBackend"],
 }

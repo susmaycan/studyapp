@@ -8,6 +8,9 @@ class Set(models.Model):
     description = models.CharField(max_length=100, blank=True, null=True)
     picture = models.CharField(max_length=300, blank=True, null=True)
     terms = models.ManyToManyField(Term, blank=True)
+    created_at = models.DateTimeField(
+        auto_now_add=True, auto_now=False, blank=True, null=True
+    )
 
     def __str__(self):
         return self.name
