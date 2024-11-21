@@ -13,8 +13,6 @@ const onCardClick = () => {
     <set-image
       v-if="set.picture"
       :url="set.picture"
-      :width="180"
-      :height="180"
       :alt="`Picture of set ${set.name}`"
     />
     <h2 class="text-lg pt-1 font-bold">{{ set.name }}</h2>
@@ -22,15 +20,15 @@ const onCardClick = () => {
 </template>
 <style lang="css" scoped>
 .set-card {
-  width: 200px;
-  height: 200px;
+  width: 13rem;
+  height: 13rem;
   border-radius: 1rem;
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
   text-align: center;
-  margin: 1rem;
+  margin: 1.25rem;
 }
 
 .set-card:hover {

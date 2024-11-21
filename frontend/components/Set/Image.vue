@@ -6,8 +6,8 @@ const props = defineProps<{
   height?: number
 }>()
 
-const width = computed(() => (props.width || 200) + 'px')
-const height = computed(() => (props.height || 200) + 'px')
+const width = computed(() => (props.width || 11) + 'rem')
+const height = computed(() => (props.height || 11) + 'rem')
 </script>
 <template>
   <img :alt="alt" class="set-image" :src="url" />
@@ -15,7 +15,7 @@ const height = computed(() => (props.height || 200) + 'px')
 <style scoped>
 .set-image {
   border-radius: 0.5rem;
-  object-fit: cover;
+  object-fit: fill;
   width: v-bind(width);
   height: v-bind(height);
 }
