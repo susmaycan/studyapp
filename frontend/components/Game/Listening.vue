@@ -73,12 +73,16 @@ watch(
       <s-input
         class="mb-3"
         id="listening-game-input"
+        :is-disabled="displayAlert"
         placeholder="Type your answer"
         :value="selectedUserResult as string || ''"
         @enter="selectedUserResult ? selectOption() : null"
         @input="writeResult"
       />
-      <s-button @click="selectOption" :is-disabled="!selectedUserResult">
+      <s-button
+        @click="selectOption"
+        :is-disabled="!selectedUserResult || displayAlert"
+      >
         Accept
       </s-button>
       <game-result-alert

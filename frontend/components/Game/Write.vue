@@ -65,6 +65,7 @@ onMounted(() => {
       <s-input
         class="mb-3"
         id="write-game-input"
+        :is-disabled="displayAlert"
         placeholder="Type your answer"
         :value="selectedUserResult as string || ''"
         @enter="selectedUserResult ? selectOption() : null"
@@ -73,7 +74,7 @@ onMounted(() => {
       <s-button
         class="mb-3"
         @click="selectOption"
-        :is-disabled="!selectedUserResult"
+        :is-disabled="!selectedUserResult || displayAlert"
       >
         Accept
       </s-button>
