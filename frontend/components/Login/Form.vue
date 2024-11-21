@@ -21,6 +21,7 @@ const validate = (loginForm: ILoginForm): FormError[] => {
     errors.push({ path: 'email', message: 'Email address is not valid' })
   if (!loginForm.password)
     errors.push({ path: 'password', message: 'Password field is required' })
+
   return errors
 }
 
@@ -35,7 +36,7 @@ const onSubmit = () => {
     class="space-y-4"
     @submit="onSubmit"
   >
-    <u-form-group label="Email" name="email">
+    <u-form-group label="Email" name="email" required>
       <s-input
         :is-loading="isSubmitting"
         placeholder="Enter your email address"
@@ -44,7 +45,7 @@ const onSubmit = () => {
       />
     </u-form-group>
 
-    <u-form-group label="Password" name="password">
+    <u-form-group label="Password" name="password" required>
       <s-input
         :is-loading="isSubmitting"
         placeholder="Enter your password"

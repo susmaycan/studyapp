@@ -3,7 +3,7 @@ definePageMeta({
   middleware: ['auth'],
 })
 
-const { logout } = useAuth()
+const { logout, user } = useAuth()
 const router = useRouter()
 
 const onLogout = () => {
@@ -14,7 +14,8 @@ const onLogout = () => {
 <template>
   <div>
     <s-title>Account</s-title>
-    <s-button @click="onLogout">Logout</s-button>
+    <h2>Hi {{ user?.email }}</h2>
+    <s-button class="my-5" @click="onLogout">Logout</s-button>
   </div>
 </template>
 
