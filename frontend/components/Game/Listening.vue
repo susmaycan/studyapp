@@ -37,6 +37,8 @@ const selectOption = () => {
 }
 
 const goToNextWord = () => {
+  if (!selectedUserResult.value) return
+
   displayAlert.value = false
   goNext()
   document.getElementById('listening-game-input')?.focus()

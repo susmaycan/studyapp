@@ -35,6 +35,8 @@ const selectOption = () => {
 }
 
 const goToNextWord = () => {
+  if (!selectedUserResult.value) return
+
   displayAlert.value = false
   goNext()
   document.getElementById('write-game-input')?.focus()
