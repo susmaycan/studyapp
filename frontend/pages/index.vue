@@ -1,5 +1,7 @@
 <script setup lang="ts">
-const { filters, currentPage, updateFilters } = useFilters()
+definePageMeta({
+  middleware: ['auth'],
+})
 
 const {
   data: dataSet,

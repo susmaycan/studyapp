@@ -1,6 +1,6 @@
 from django.db.models import Q
 from rest_framework import filters, mixins, status, viewsets
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.permissions import IsAuthenticated, IsAdminUser
 from rest_framework.response import Response
 
 from set.models import Set
@@ -38,7 +38,7 @@ class SetViewSet(
             RestFrameworkActions.PARTIAL_UPDATE,
             RestFrameworkActions.DESTROY,
         ]:
-            permission_classes.append(IsAuthenticated)
+            permission_classes.append(IsAuthenticated, IsAdminUser)
 
         return [permission() for permission in permission_classes]
 
