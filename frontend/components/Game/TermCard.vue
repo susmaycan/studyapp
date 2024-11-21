@@ -1,8 +1,8 @@
 <script setup lang="ts">
 const props = defineProps<{
-  term: ITerm
-  mode: IGameMode
   isCorrect?: boolean | null
+  mode: IGameMode
+  term: ITerm
 }>()
 const emits = defineEmits(['selectOption'])
 
@@ -32,11 +32,11 @@ const onCardClick = () => {
 </template>
 <style lang="css" scoped>
 .term-card {
+  align-items: center;
   border-radius: 1rem;
   display: flex;
-  justify-content: center;
-  align-items: center;
   flex-direction: column;
+  justify-content: center;
   text-align: center;
 }
 

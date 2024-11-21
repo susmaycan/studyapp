@@ -1,7 +1,7 @@
 <script setup lang="ts">
 const props = defineProps<{
-  set: ISet
   mode: IGameMode
+  set: ISet
 }>()
 
 const { mode: propsMode } = toRefs(props)
@@ -13,9 +13,9 @@ const {
   isCorrectResult,
   isFinished,
   mode,
+  selectChoice,
   selectedTerm,
   selectedUserResult,
-  selectChoice,
 } = useGame(props.set.terms, propsMode, EGameType.choose)
 
 const isCorrectOption = (choice: ITerm) => {
@@ -58,9 +58,9 @@ const selectOption = (choice: ITerm) => {
         <game-term-card
           v-for="choice in choiceList"
           :key="choice.id"
-          :term="choice"
-          :mode="mode"
           :is-correct="isCorrectOption(choice)"
+          :mode="mode"
+          :term="choice"
           @select-option="selectOption(choice)"
         />
       </div>

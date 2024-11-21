@@ -1,7 +1,7 @@
 <script setup lang="ts">
 const props = defineProps<{
-  set: ISet
   mode: IGameMode
+  set: ISet
 }>()
 
 const { mode: propsMode } = toRefs(props)
@@ -17,7 +17,7 @@ const {
   writeResult,
 } = useGame(props.set.terms, propsMode, EGameType.listening)
 
-const { speak, isCompatible } = useSpeechAPI()
+const { speak } = useSpeechAPI()
 
 const displayAlert = ref(false)
 
@@ -26,6 +26,7 @@ const playWord = () => {
 }
 
 const selectOption = () => {
+  document.getElementById('listening-game-input')?.blur()
   displayAlert.value = true
 
   if (isCorrectResult.value) {
@@ -38,7 +39,7 @@ const selectOption = () => {
 const goToNextWord = () => {
   displayAlert.value = false
   goNext()
-  document.getElementById('write-game-input')?.focus()
+  document.getElementById('listening-game-input')?.focus()
 }
 
 onMounted(() => {
@@ -71,7 +72,7 @@ watch(
       </div>
       <s-input
         class="mb-3"
-        id="write-game-input"
+        id="listening-game-input"
         placeholder="Type your answer"
         :value="selectedUserResult as string || ''"
         @enter="selectedUserResult ? selectOption() : null"
@@ -82,9 +83,9 @@ watch(
       </s-button>
       <game-result-alert
         :display-alert="displayAlert"
-        :selected-term="selectedTerm"
         :is-correct-result="isCorrectResult"
         :mode="mode"
+        :selected-term="selectedTerm"
         @go-to-next-word="goToNextWord"
       />
     </div>
