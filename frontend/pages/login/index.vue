@@ -6,15 +6,16 @@ definePageMeta({
 const { authenticate } = useAuth()
 const router = useRouter()
 
-const loginOK = () => {
-  authenticate('12345', { email: 'test@test.com', _id: '1' })
+const submitForm = (form: ILoginForm) => {
+  authenticate('12345', { email: form.email, _id: '1' })
   router.push('/')
 }
 </script>
 <template>
   <div>
-    <s-title>Login</s-title>
-    <s-button @click="loginOK">Login here</s-button>
+    <s-title>➡️ Login</s-title>
+    <p class="mt-3">Please log in to continue</p>
+    <login-form @submit="submitForm" />
   </div>
 </template>
 

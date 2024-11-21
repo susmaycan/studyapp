@@ -2,7 +2,6 @@
 definePageMeta({
   middleware: ['auth'],
 })
-
 const route = useRoute()
 const setId = computed(() => route.params.id)
 const {

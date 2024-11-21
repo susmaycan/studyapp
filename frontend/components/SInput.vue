@@ -4,7 +4,9 @@ defineProps<{
   id?: string
   isDisabled?: boolean
   isLoading?: boolean
+  label?: string
   placeholder?: string
+  type?: 'password'
   value?: string
 }>()
 
@@ -19,8 +21,14 @@ const onInput = (newValue: string) => {
 const onEnter = () => {
   emits('enter')
 }
+
+const onClearInput = () => {
+  onChange('')
+  onInput('')
+}
 </script>
 <template>
+  <label class="font-bold" v-if="label" :for="id">{{ label }} </label>
   <u-input
     :disabled="isLoading || isDisabled"
     :icon="icon"
@@ -28,8 +36,9 @@ const onEnter = () => {
     :loading="isLoading"
     :model-value="value"
     :placeholder="placeholder"
-    :ui="{ icon: { trailing: { pointer: '' } } }"
     size="lg"
+    :type="type"
+    :ui="{ icon: { trailing: { pointer: '' } } }"
     @change="onChange"
     @keypress.enter="onEnter"
     @update:model-value="onInput"
@@ -41,7 +50,7 @@ const onEnter = () => {
         color="gray"
         icon="i-heroicons-x-mark-20-solid"
         variant="link"
-        @click.stop="onChange('')"
+        @click.stop="onClearInput"
       />
     </template>
   </u-input>

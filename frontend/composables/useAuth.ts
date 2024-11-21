@@ -25,7 +25,6 @@ export function useAuth() {
   const isAuthenticated = computed(() => !!token.value)
 
   const initAuthentication = () => {
-    debugger
     const localStorageToken = localStorage.getItem('token')
     if (localStorageToken) setToken(localStorageToken)
     const localStorageUser = localStorage.getItem('user')

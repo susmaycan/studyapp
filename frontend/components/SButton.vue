@@ -1,7 +1,8 @@
 <script setup lang="ts">
 defineProps<{
-  isLoading?: boolean
   isDisabled?: boolean
+  isLoading?: boolean
+  isSubmitButton?: boolean
   variant?: 'solid' | 'outline'
 }>()
 
@@ -13,6 +14,7 @@ const emits = defineEmits(['click'])
     class="text-base"
     :disabled="isDisabled"
     :loading="isLoading"
+    :type="isSubmitButton ? 'submit' : undefined"
     :variant="variant || 'solid'"
     @click="emits('click')"
   >
