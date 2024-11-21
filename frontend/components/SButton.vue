@@ -2,6 +2,7 @@
 defineProps<{
   isLoading?: boolean
   isDisabled?: boolean
+  variant?: 'solid' | 'outline'
 }>()
 
 const emits = defineEmits(['click'])
@@ -9,10 +10,11 @@ const emits = defineEmits(['click'])
 
 <template>
   <u-button
-    :loading="isLoading"
-    @click="emits('click')"
-    :disabled="isDisabled"
     class="text-base"
+    :disabled="isDisabled"
+    :loading="isLoading"
+    :variant="variant || 'solid'"
+    @click="emits('click')"
   >
     <slot />
   </u-button>

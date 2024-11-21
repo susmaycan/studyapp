@@ -1,5 +1,5 @@
 export interface IGameStats {
-  ok: number
   ko: number
+  ok: number
   total: number
 }

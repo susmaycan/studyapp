@@ -1,15 +1,15 @@
 // Input data from components
 export interface IFetchConfig {
-  method?: EFetchMethod
   body?: IFormData
+  method?: EFetchMethod
   params?: Record<string, string>
 }
 
 // Used to call fetch
 export interface IFetchOptions {
-  method: EFetchMethod
-  headers?: Record<string, string>
   body?: FormData
+  headers?: Record<string, string>
+  method: EFetchMethod
   params?: Record<string, string | number>
 }
 

@@ -1,7 +1,7 @@
 export interface ISet {
+  description?: string
   id: number
   name: string
-  description?: string
   picture?: string
   terms: ITerm[]
 }

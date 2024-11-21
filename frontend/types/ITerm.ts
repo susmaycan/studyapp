@@ -1,8 +1,8 @@
 export interface ITerm {
-  id: number
-  front: string
+  back_alternatives: string
   back: string
   description?: string
-  back_alternatives: string
+  front: string
+  id: number
   progress: number
 }

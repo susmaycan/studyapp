@@ -27,30 +27,19 @@ const playWord = () => {
 
 const selectOption = () => {
   displayAlert.value = true
-  setTimeout(
-    () => {
-      displayAlert.value = false
-      goNext()
-      document.getElementById('write-game-input')?.focus()
-    },
-    isCorrectResult.value ? 1000 : 2000
-  )
+
+  if (isCorrectResult.value) {
+    setTimeout(() => {
+      goToNextWord()
+    }, 1000)
+  }
 }
 
-const alertText = computed(() => {
-  if (!selectedTerm.value) return ''
-
-  let correctAnswer = selectedTerm.value.front
-
-  if (props.mode === EGameMode.front) {
-    const alternativeBack = selectedTerm.value.back_alternatives
-      ? ` [${selectedTerm.value.back_alternatives}]`
-      : ''
-    correctAnswer = selectedTerm?.value.back + alternativeBack
-  }
-
-  return `Correct answer is ${correctAnswer}`
-})
+const goToNextWord = () => {
+  displayAlert.value = false
+  goNext()
+  document.getElementById('write-game-input')?.focus()
+}
 
 onMounted(() => {
   initGame()
@@ -59,7 +48,7 @@ onMounted(() => {
 watch(
   () => selectedTerm.value,
   () => {
-    playWord()
+    if (selectedTerm.value) playWord()
   }
 )
 </script>
@@ -91,11 +80,12 @@ watch(
       <s-button @click="selectOption" :is-disabled="!selectedUserResult">
         Accept
       </s-button>
-      <u-alert
-        v-show="displayAlert"
-        :color="isCorrectResult ? 'green' : 'red'"
-        :description="alertText"
-        :title="isCorrectResult ? 'Correct! ✅' : 'Incorrect! ❌'"
+      <game-result-alert
+        :display-alert="displayAlert"
+        :selected-term="selectedTerm"
+        :is-correct-result="isCorrectResult"
+        :mode="mode"
+        @go-to-next-word="goToNextWord"
       />
     </div>
     <game-result

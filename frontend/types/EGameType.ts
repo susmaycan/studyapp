@@ -1,14 +1,14 @@
 export enum EGameType {
   choose = 'choose',
-  write = 'write',
   listening = 'listening',
+  write = 'write',
 }
 
 export type IGameType = keyof typeof EGameType
 
 export enum EGameMode {
-  front = 'front',
   back = 'back',
+  front = 'front',
 }
 
 export type IGameMode = keyof typeof EGameMode
