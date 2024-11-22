@@ -25,7 +25,7 @@ export function useAuth() {
   }
 
   const userAvatar = computed(
-    () => 'https://avatar.iran.liara.run/public/' + user.value?._id
+    () => 'https://avatar.iran.liara.run/public/' + (user.value?._id || '')
   )
 
   const isAuthenticated = computed(() => !!token.value)

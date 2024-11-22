@@ -4,5 +4,4 @@ export interface ITerm {
   description?: string
   front: string
   id: number
-  progress: number
 }

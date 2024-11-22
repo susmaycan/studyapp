@@ -8,14 +8,13 @@ from .models import Term
 class TermSerializer(serializers.ModelSerializer):
     class Meta:
         model = Term
-        fields = ("id", "front", "back", "description", "progress", "back_alternatives")
+        fields = ("id", "front", "back", "description", "back_alternatives")
         read_only_fields = (
-            "id",
-            "front",
+            "back_alternatives",
             "back",
             "description",
-            "progress",
-            "back_alternatives",
+            "front",
+            "id",
         )
 
 
