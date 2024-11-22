@@ -25,16 +25,18 @@ class SetListSerializer(serializers.ModelSerializer):
 
 
 class SetCreateSerializer(serializers.ModelSerializer):
-    name = serializers.CharField(max_length=50)
+    creator = serializers.HiddenField(default=serializers.CurrentUserDefault())
     description = serializers.CharField(max_length=100, required=False)
+    name = serializers.CharField(max_length=50)
     picture = serializers.CharField(max_length=300, required=False)
     terms = serializers.CharField(max_length=2000)
 
     class Meta:
         model = Set
         fields = [
-            "name",
+            "creator",
             "description",
+            "name",
             "picture",
             "terms",
         ]

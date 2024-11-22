@@ -1,6 +1,7 @@
 from djongo import models
 
 from term.models import Term
+from user.models import User
 
 
 class Set(models.Model):
@@ -11,6 +12,7 @@ class Set(models.Model):
     created_at = models.DateTimeField(
         auto_now_add=True, auto_now=False, blank=True, null=True
     )
+    creator = models.ForeignKey(User, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.name
