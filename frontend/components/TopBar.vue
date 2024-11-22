@@ -1,5 +1,5 @@
 <script setup lang="ts">
-const { isAuthenticated } = useAuth()
+const { isAuthenticated, userAvatar } = useAuth()
 
 const guestLinks = [
   {
@@ -21,7 +21,7 @@ const guestLinks = [
 const authenticatedLinks = [
   {
     avatar: {
-      src: 'https://preview.redd.it/knrskwg8sya91.jpg?width=737&format=pjpg&auto=webp&s=fdc18cacde5b5a3e3216f6513642c7fe395cf40d',
+      src: userAvatar.value,
     },
     to: '/account',
   },

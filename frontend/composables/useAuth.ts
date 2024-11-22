@@ -9,7 +9,9 @@ export function useAuth() {
 
   const logout = () => {
     token.value = null
+    localStorage.removeItem('token')
     user.value = null
+    localStorage.removeItem('user')
   }
 
   const setToken = (newToken: string) => {
@@ -21,6 +23,10 @@ export function useAuth() {
     user.value = newUser
     localStorage.setItem('user', JSON.stringify(newUser))
   }
+
+  const userAvatar = computed(
+    () => 'https://avatar.iran.liara.run/public/' + user.value?._id
+  )
 
   const isAuthenticated = computed(() => !!token.value)
 
@@ -40,5 +46,6 @@ export function useAuth() {
     setUser,
     token,
     user,
+    userAvatar,
   }
 }

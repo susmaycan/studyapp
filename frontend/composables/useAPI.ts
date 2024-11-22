@@ -12,10 +12,15 @@ export function useAPI<T>(
   options?: UseFetchOptions<T>
 ) {
   const runtime = useRuntimeConfig()
+  const { token } = useAuth()
 
   const fullUrl = runtime.public.API_URL + url
   const useFetchResponse = useFetch(fullUrl, {
     ...options,
+    headers: {
+      ...options?.headers,
+      Authorization: token.value ? `Token ${token.value}` : '',
+    },
     immediate: false,
   })
 

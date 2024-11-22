@@ -15,11 +15,8 @@ class AuthViewSet(GenericViewSet):
 
     @action(detail=False, methods=["post"])
     def login(self, request):
-        print("🚀 ~ request:", request)
-
         serializer = UserLoginSerializer(data=request.data)
-        print("🚀 ~ serializer:", serializer)
         serializer.is_valid(raise_exception=True)
         user, token = serializer.save()
-        data = {"user": UserSerializer(user).data, "access_token": token}
+        data = {"user": UserSerializer(user).data, "token": token}
         return Response(data, status=HTTP_201_CREATED)

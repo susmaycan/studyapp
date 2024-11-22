@@ -2,7 +2,7 @@
 import type { FormError, FormSubmitEvent } from '#ui/types'
 
 defineProps<{
-  error?: string
+  errors?: string[]
   isSubmitting?: boolean
 }>()
 
@@ -54,7 +54,17 @@ const onSubmit = () => {
         @input="form.password = $event"
       />
     </u-form-group>
-
+    <u-alert
+      v-if="errors && errors.length"
+      color="red"
+      icon="i-heroicons-exclamation-triangle"
+      title="Error!"
+      variant="outline"
+    >
+      <template #description>
+        <p v-for="error in errors">{{ error }}</p>
+      </template>
+    </u-alert>
     <s-button :is-loading="isSubmitting" is-submit-button> Submit </s-button>
   </u-form>
 </template>

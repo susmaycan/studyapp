@@ -31,14 +31,14 @@ class SetViewSet(
         return SetSerializer
 
     def get_permissions(self):
-        permission_classes = []
+        permission_classes = [IsAuthenticated]
         if self.action in [
             RestFrameworkActions.CREATE,
             RestFrameworkActions.UPDATE,
             RestFrameworkActions.PARTIAL_UPDATE,
             RestFrameworkActions.DESTROY,
         ]:
-            permission_classes.append(IsAuthenticated, IsAdminUser)
+            permission_classes.append(IsAdminUser)
 
         return [permission() for permission in permission_classes]
 
