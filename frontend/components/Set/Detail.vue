@@ -4,6 +4,7 @@ const props = defineProps<{
 }>()
 
 const router = useRouter()
+
 const startGame = () => {
   router.push(`/game/${props.set?.id}`)
 }

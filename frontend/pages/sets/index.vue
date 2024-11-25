@@ -4,6 +4,7 @@ definePageMeta({
 })
 
 const { filters, currentPage, updateFilters } = useFilters()
+const { isAdmin } = useAuth()
 
 const {
   data,
@@ -19,6 +20,9 @@ const setList = computed<ISet[]>(() => data?.value?.results || [])
 </script>
 <template>
   <div>
+    <div v-if="isAdmin" class="flex justify-end">
+      <set-create-form @refresh="fetchSetList" />
+    </div>
     <s-title>Sets</s-title>
     <p>Check out the list of sets</p>
     <div class="flex flex-col items-center justify-center">

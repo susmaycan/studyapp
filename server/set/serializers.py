@@ -26,9 +26,9 @@ class SetListSerializer(serializers.ModelSerializer):
 
 class SetCreateSerializer(serializers.ModelSerializer):
     creator = serializers.HiddenField(default=serializers.CurrentUserDefault())
-    description = serializers.CharField(max_length=100, required=False)
+    description = serializers.CharField(max_length=100, required=False, allow_blank=True, allow_null=True)
     name = serializers.CharField(max_length=50)
-    picture = serializers.CharField(max_length=300, required=False)
+    picture = serializers.CharField(max_length=300, required=False, allow_blank=True, allow_null=True)
     terms_batch = serializers.CharField(
         max_length=2000, allow_blank=True, allow_null=True, required=False
     )
