@@ -55,6 +55,7 @@ INSTALLED_APPS = [
     "user",
     "djongo",
     "django_filters",
+    "stats",
 ]
 
 MIDDLEWARE = [

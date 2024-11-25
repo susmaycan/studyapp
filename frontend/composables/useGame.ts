@@ -123,6 +123,25 @@ export function useGame(
     return stats
   })
 
+  const gameResultStats = computed<IGameTermResults[]>(() => {
+    let gameResults: IGameTermResults[] = []
+    optionList.value.forEach((term, index) => {
+      const stat: IGameTermResults = {
+        term: term.id,
+        ok: false,
+        ko: false,
+      }
+      let isCorrect = checkCorrectResult(userResultList.value[index], term)
+
+      if (isCorrect) stat.ok = true
+      else stat.ko = true
+
+      gameResults.push(stat)
+    })
+
+    return gameResults
+  })
+
   watch(
     () => mode.value,
     (newValue, oldValue) => {
@@ -134,6 +153,7 @@ export function useGame(
     canShowList,
     checkCorrectResult,
     choiceList,
+    gameResultStats,
     gameStats,
     goBack,
     goNext,

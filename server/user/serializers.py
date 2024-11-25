@@ -11,8 +11,9 @@ class UserSerializer(serializers.ModelSerializer):
         fields = (
             "_id",
             "email",
+            "is_staff"
         )
-        read_only_fields = ("_id", "username", "email")
+        read_only_fields = ("_id", "username", "email", "is_staff")
 
 
 class UserLoginSerializer(serializers.Serializer):

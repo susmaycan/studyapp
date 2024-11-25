@@ -23,4 +23,5 @@ urlpatterns = [
     path("", include(("set.urls", "set"), namespace="set")),
     path("", include(("term.urls", "term"), namespace="term")),
     path("", include(("user.urls", "user"), namespace="user")),
+    path("", include(("stats.urls", "stats"), namespace="stats")),
 ]

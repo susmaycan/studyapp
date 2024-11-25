@@ -12,7 +12,7 @@ class Set(models.Model):
     created_at = models.DateTimeField(
         auto_now_add=True, auto_now=False, blank=True, null=True
     )
-    creator = models.ForeignKey(User, on_delete=models.CASCADE)
+    creator = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
 
     def __str__(self):
         return self.name

@@ -11,7 +11,7 @@ class Term(models.Model):
     created_at = models.DateTimeField(
         auto_now_add=True, auto_now=False, blank=True, null=True
     )
-    creator = models.ForeignKey(User, on_delete=models.CASCADE)
+    creator = models.ForeignKey(User, on_delete=models.PROTECT)
 
     def __str__(self):
         return self.front

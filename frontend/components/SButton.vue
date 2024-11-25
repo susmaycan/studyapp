@@ -1,9 +1,11 @@
 <script setup lang="ts">
 defineProps<{
+  color?: ButtonColor
+  icon?: string
   isDisabled?: boolean
   isLoading?: boolean
   isSubmitButton?: boolean
-  variant?: 'solid' | 'outline'
+  variant?: 'solid' | 'outline' | 'link'
 }>()
 
 const emits = defineEmits(['click'])
@@ -12,7 +14,9 @@ const emits = defineEmits(['click'])
 <template>
   <u-button
     class="text-base"
+    :color="color"
     :disabled="isDisabled"
+    :icon="icon"
     :loading="isLoading"
     :type="isSubmitButton ? 'submit' : undefined"
     :variant="variant || 'solid'"

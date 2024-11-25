@@ -1,9 +1,13 @@
 <script setup lang="ts">
 const props = defineProps<{
   term: ITerm
+  canEdit?: boolean
 }>()
 
+const emits = defineEmits(['refresh'])
+
 const { speak, isCompatible } = useSpeechAPI()
+const { isAdmin } = useAuth()
 
 const onCardClick = () => {
   if (isCompatible.value) speak(props.term.back_alternatives || props.term.back)
@@ -15,6 +19,14 @@ const onCardClick = () => {
     :class="{ 'hover:cursor-pointer': isCompatible }"
     @click="onCardClick"
   >
+    <div v-if="canEdit" class="edit-buttons">
+      <term-create-form
+        v-if="canEdit && isAdmin"
+        :term="term"
+        @refresh="emits('refresh')"
+      />
+      <term-delete v-if="canEdit" :term="term" @refresh="emits('refresh')" />
+    </div>
     <p class="font-bold">{{ term.front }}</p>
     -
     <p class="term-back">
@@ -27,6 +39,7 @@ const onCardClick = () => {
 </template>
 <style lang="css" scoped>
 .term-card {
+  position: relative;
   border-radius: 1rem;
   display: flex;
   justify-content: center;
@@ -37,5 +50,11 @@ const onCardClick = () => {
 
 .term-back {
   word-break: break-all;
+}
+
+.edit-buttons {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
 }
 </style>

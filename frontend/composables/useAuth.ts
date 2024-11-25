@@ -29,6 +29,7 @@ export function useAuth() {
   )
 
   const isAuthenticated = computed(() => !!token.value)
+  const isAdmin = computed(() => user.value?.is_staff || false)
 
   const initAuthentication = () => {
     const localStorageToken = localStorage.getItem('token')
@@ -40,6 +41,7 @@ export function useAuth() {
   return {
     authenticate,
     initAuthentication,
+    isAdmin,
     isAuthenticated,
     logout,
     setToken,

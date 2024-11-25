@@ -10,11 +10,9 @@ class TermSerializer(serializers.ModelSerializer):
         model = Term
         fields = ("id", "front", "back", "description", "back_alternatives")
         read_only_fields = (
-            "back_alternatives",
-            "back",
-            "description",
-            "front",
+            "creator",
             "id",
+            "created_at",
         )
 
 
@@ -25,3 +23,15 @@ class TermSetSerializer(serializers.ModelSerializer):
         model = Term
         fields = ("id", "front")
         read_only_fields = ("id", "front")
+
+
+class TermCreateSerializer(serializers.ModelSerializer):
+    creator = serializers.HiddenField(default=serializers.CurrentUserDefault())
+    front = serializers.CharField(max_length=100)
+    back = serializers.CharField(max_length=100)
+    back_alternatives = serializers.CharField(max_length=300, required=False, allow_null=True, allow_blank=True)
+    description = serializers.CharField(max_length=2000, required=False, allow_null=True, allow_blank=True)
+
+    class Meta:
+        model = Term
+        fields = ["front", "back", "description", "back_alternatives", "creator"]

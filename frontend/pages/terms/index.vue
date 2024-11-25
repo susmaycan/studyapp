@@ -4,7 +4,7 @@ definePageMeta({
 })
 
 const { filters, currentPage, updateFilters } = useFilters()
-
+const { isAdmin } = useAuth()
 const {
   data,
   execute: fetchTermList,
@@ -19,11 +19,13 @@ const termList = computed(() => data?.value?.results || [])
 </script>
 <template>
   <div>
+    <div v-if="isAdmin" class="flex justify-end">
+      <term-create-form @refresh="fetchTermList" />
+    </div>
     <s-title>Terms</s-title>
     <p>Check out all available terms</p>
-    <div class="flex flex-col items-center justify-center">
+    <div class="flex flex-col items-center justify-center gap-4">
       <s-input
-        class="my-3"
         icon="i-heroicons-magnifying-glass-20-solid"
         :is-disabled="isLoading"
         :is-loading="isLoading"
@@ -35,7 +37,13 @@ const termList = computed(() => data?.value?.results || [])
     <set-skeleton-list v-if="isLoading" />
     <div v-else class="flex flex-col items-center justify-center">
       <div class="flex justify-center flex-wrap w-full">
-        <term-card-all v-for="term in termList" :key="term.id" :term="term" />
+        <term-card-all
+          v-for="term in termList"
+          :key="term.id"
+          :can-edit="true"
+          :term="term"
+          @refresh="fetchTermList"
+        />
       </div>
       <div v-if="termList.length === 0">
         No terms match this query. Please try with a different query.
