@@ -19,13 +19,9 @@ const onCardClick = () => {
     :class="{ 'hover:cursor-pointer': isCompatible }"
     @click="onCardClick"
   >
-    <div v-if="canEdit" class="edit-buttons">
-      <term-create-form
-        v-if="canEdit && isAdmin"
-        :term="term"
-        @refresh="emits('refresh')"
-      />
-      <term-delete v-if="canEdit" :term="term" @refresh="emits('refresh')" />
+    <div v-if="canEdit && isAdmin" class="edit-buttons">
+      <term-create-form :term="term" @refresh="emits('refresh')" />
+      <term-delete :term="term" @refresh="emits('refresh')" />
     </div>
     <p class="font-bold">{{ term.front }}</p>
     -
