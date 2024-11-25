@@ -5,9 +5,12 @@ const props = defineProps<{
 }>()
 
 const { mode: propsMode } = toRefs(props)
+const emits = defineEmits(['finishGame'])
+
 const {
   canShowList,
   choiceList,
+  gameResultStats,
   gameStats,
   initGame,
   isCorrectResult,
@@ -38,6 +41,13 @@ const selectOption = (choice: ITerm) => {
     speak(selectedTerm.value!.back_alternatives || selectedTerm.value!.back)
   selectChoice(choice)
 }
+
+watch(
+  () => isFinished.value,
+  (newValue, oldValue) => {
+    if (isFinished.value) emits('finishGame', gameResultStats.value)
+  }
+)
 </script>
 <template>
   <div>

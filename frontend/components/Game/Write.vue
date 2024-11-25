@@ -4,9 +4,11 @@ const props = defineProps<{
   set: ISet
 }>()
 
+const emits = defineEmits(['finishGame'])
 const { mode: propsMode } = toRefs(props)
 const {
   canShowList,
+  gameResultStats,
   gameStats,
   goNext,
   initGame,
@@ -45,6 +47,13 @@ const goToNextWord = () => {
 onMounted(() => {
   initGame()
 })
+
+watch(
+  () => isFinished.value,
+  (newValue, oldValue) => {
+    if (isFinished.value) emits('finishGame', gameResultStats.value)
+  }
+)
 </script>
 <template>
   <div class="mt-5">

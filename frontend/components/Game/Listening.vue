@@ -3,10 +3,12 @@ const props = defineProps<{
   mode: IGameMode
   set: ISet
 }>()
+const emits = defineEmits(['finishGame'])
 
 const { mode: propsMode } = toRefs(props)
 const {
   canShowList,
+  gameResultStats,
   gameStats,
   goNext,
   initGame,
@@ -52,6 +54,13 @@ watch(
   () => selectedTerm.value,
   () => {
     if (selectedTerm.value) playWord()
+  }
+)
+
+watch(
+  () => isFinished.value,
+  (newValue, oldValue) => {
+    if (isFinished.value) emits('finishGame', gameResultStats.value)
   }
 )
 </script>

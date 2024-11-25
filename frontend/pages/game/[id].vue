@@ -11,7 +11,7 @@ const {
   isLoading,
 } = useAPI<ISet>(`/sets/${setId.value}/`)
 
-const results = ref<IGameResults | null>(null)
+const results = ref<IGameResults>({ terms: [] })
 const { execute: setResults } = useAPI(`/stats/results/`, {
   body: results,
   method: 'POST',
@@ -29,8 +29,8 @@ const saveSettings = (savedSettings: IGameSettings) => {
   settings.value = { type: savedSettings.type, mode: savedSettings.mode }
 }
 
-const finishGame = (gameResults: IGameResults) => {
-  results.value = gameResults
+const finishGame = (gameResults: IGameTermResults[]) => {
+  results.value.terms = gameResults
   setResults()
 }
 </script>
