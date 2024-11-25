@@ -6,10 +6,7 @@ class User(AbstractUser):
     _id = models.ObjectIdField()
 
     email = models.EmailField(unique=True)
-    is_staff = models.BooleanField(
-        'staff status',
-        default=False
-    )
+    is_staff = models.BooleanField("staff status", default=False)
     USERNAME_FIELD = "email"
     REQUIRED_FIELDS = ["username"]
 

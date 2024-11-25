@@ -73,15 +73,11 @@ const resetForm = () => {
 }
 
 const isEditModal = computed(() => !!props.term)
-
-const onCancel = () => {
-  showModal.value = false
-  resetForm()
-}
 </script>
 <template>
   <s-button
     v-if="!isEditModal"
+    class="m-2"
     icon="i-heroicons-plus-circle"
     @click="showModal = true"
   >

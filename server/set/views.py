@@ -5,15 +5,18 @@ from rest_framework.response import Response
 
 from set.models import Set
 from set.serializers import (SetCreateSerializer, SetListSerializer,
-                             SetSerializer)
+                             SetSerializer, SetUpdateSerializer)
 from utils.constants import RestFrameworkActions
+from utils.mixins import EnablePartialUpdateMixin
 from utils.pagination import BasePagination
 
 
 class SetViewSet(
+    EnablePartialUpdateMixin,
+    mixins.DestroyModelMixin,
     mixins.ListModelMixin,
     mixins.RetrieveModelMixin,
-    mixins.CreateModelMixin,
+    mixins.UpdateModelMixin,
     viewsets.GenericViewSet,
 ):
     pagination_class = BasePagination
@@ -24,6 +27,11 @@ class SetViewSet(
     ordering = ["name"]
 
     def get_serializer_class(self):
+        if self.action in [
+            RestFrameworkActions.PARTIAL_UPDATE,
+            RestFrameworkActions.UPDATE,
+        ]:
+            return SetUpdateSerializer
         if self.action in [
             RestFrameworkActions.LIST,
         ]:
@@ -47,5 +55,6 @@ class SetViewSet(
             data=request.data, context={"request": self.request}
         )
         serializer.is_valid(raise_exception=True)
-        serializer.save()
-        return Response(status=status.HTTP_201_CREATED)
+        saved_set = serializer.save()
+        data = SetSerializer(saved_set).data
+        return Response(data, status=status.HTTP_201_CREATED)

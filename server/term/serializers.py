@@ -29,8 +29,12 @@ class TermCreateSerializer(serializers.ModelSerializer):
     creator = serializers.HiddenField(default=serializers.CurrentUserDefault())
     front = serializers.CharField(max_length=100)
     back = serializers.CharField(max_length=100)
-    back_alternatives = serializers.CharField(max_length=300, required=False, allow_null=True, allow_blank=True)
-    description = serializers.CharField(max_length=2000, required=False, allow_null=True, allow_blank=True)
+    back_alternatives = serializers.CharField(
+        max_length=300, required=False, allow_null=True, allow_blank=True
+    )
+    description = serializers.CharField(
+        max_length=2000, required=False, allow_null=True, allow_blank=True
+    )
 
     class Meta:
         model = Term
