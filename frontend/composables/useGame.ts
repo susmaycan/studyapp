@@ -85,6 +85,9 @@ export function useGame(
       .replaceAll(' ', '')
       .replaceAll('.', '')
       .replaceAll('　', '')
+      .replaceAll('。', '')
+      .replaceAll('~', '')
+      .replaceAll('〜', '')
       .toLowerCase()
 
   const checkCorrectResult = (userInput: ITerm | string, result: ITerm) => {

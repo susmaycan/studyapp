@@ -80,9 +80,7 @@ const isEditModal = computed(() => !!props.term)
     class="m-2"
     icon="i-heroicons-plus-circle"
     @click="showModal = true"
-  >
-    Add term
-  </s-button>
+  />
   <s-button
     v-else
     icon="i-heroicons-pencil-square"

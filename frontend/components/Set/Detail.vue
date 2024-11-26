@@ -24,14 +24,18 @@ const emptyTermsLength = computed(() => props.set.terms.length === 0)
         :height="17"
         :alt="`Picture of set ${set.name}`"
       />
-      <s-button :is-disabled="emptyTermsLength" @click="startGame">
-        ▶️ Practice
+      <s-button
+        icon="i-heroicons-play-circle"
+        :is-disabled="emptyTermsLength"
+        @click="startGame"
+      >
+        Practice
       </s-button>
     </div>
     <div>
       <p v-if="emptyTermsLength">No terms in this set.</p>
       <div class="flex justify-center flex-wrap">
-        <term-card v-for="term in set.terms" :key="term.id" :term="term" />
+        <term-card-all v-for="term in set.terms" :key="term.id" :term="term" />
       </div>
     </div>
   </div>

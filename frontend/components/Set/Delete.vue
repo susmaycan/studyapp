@@ -34,9 +34,7 @@ const confirmDelete = async () => {
 }
 </script>
 <template>
-  <s-button icon="i-heroicons-trash" @click="showModal = true">
-    Delete set
-  </s-button>
+  <s-button icon="i-heroicons-trash" @click="showModal = true" />
   <u-modal v-model="showModal">
     <div class="p-7">
       <s-title class="mb-4"> Delete set </s-title>

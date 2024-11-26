@@ -9,34 +9,44 @@ const emits = defineEmits(['refresh'])
 const { speak, isCompatible } = useSpeechAPI()
 const { isAdmin } = useAuth()
 
-const onCardClick = () => {
+const playSound = () => {
   if (isCompatible.value) speak(props.term.back_alternatives || props.term.back)
 }
 </script>
 <template>
-  <div
-    class="term-card h-32 w-full lg:w-52 lg:h-52 m-2 lg:m-5 bg-indigo-300 dark:bg-indigo-500"
-    :class="{ 'hover:cursor-pointer': isCompatible }"
-    @click="onCardClick"
-  >
+  <div class="term-card h-32 w-full lg:w-52 lg:h-52 m-2 lg:m-5 rounded-md">
+    <div v-if="isCompatible" class="sound-button">
+      <s-button
+        color="white"
+        icon="i-heroicons-speaker-wave"
+        variant="link"
+        @click="playSound"
+      />
+    </div>
     <div v-if="canEdit && isAdmin" class="edit-buttons">
       <term-create-form :term="term" @refresh="emits('refresh')" />
       <term-delete :term="term" @refresh="emits('refresh')" />
     </div>
-    <p class="font-bold">{{ term.front }}</p>
-    -
-    <p class="term-back">
-      {{ term.back }}
-      <span v-if="term.back_alternatives" class="ml-1">
-        [{{ term.back_alternatives }}]
-      </span>
-    </p>
+    <div
+      class="bg-indigo-300 dark:bg-indigo-500 w-full h-full flex flex-col items-center justify-end rounded-t-md"
+    >
+      <p class="font-bold pb-3">{{ term.front }}</p>
+    </div>
+    <div
+      class="bg bg-teal-300 dark:bg-teal-500 w-full h-full flex flex-col items-center justify-start rounded-b-md"
+    >
+      <p class="term-back pt-3">
+        {{ term.back }}
+        <span v-if="term.back_alternatives" class="ml-1">
+          [{{ term.back_alternatives }}]
+        </span>
+      </p>
+    </div>
   </div>
 </template>
 <style lang="css" scoped>
 .term-card {
   position: relative;
-  border-radius: 1rem;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -52,5 +62,10 @@ const onCardClick = () => {
   position: absolute;
   top: 1rem;
   right: 1rem;
+}
+.sound-button {
+  position: absolute;
+  top: 1rem;
+  left: 1rem;
 }
 </style>

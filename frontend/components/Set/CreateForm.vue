@@ -99,14 +99,11 @@ const search = async (q: string) => {
 </script>
 <template>
   <s-button
-    :icon="
-      isEditModal ? 'i-heroicons-pencil-square' : 'i-heroicons-plus-circle'
-    "
+    v-if="isEditModal"
+    icon="i-heroicons-pencil-square"
     @click="showModal = true"
-  >
-    <span v-if="isEditModal">Edit set</span>
-    <span v-else>Add set</span>
-  </s-button>
+  />
+  <s-button v-else icon="i-heroicons-plus-circle" @click="showModal = true" />
   <u-modal v-model="showModal" fullscreen>
     <div class="p-7">
       <s-title class="mb-4">

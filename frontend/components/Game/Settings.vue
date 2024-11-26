@@ -70,7 +70,7 @@ const play = () => {
           <span class="text-md lg:text-lg font-bold">Mode</span>
         </template>
       </u-radio-group>
-      <u-button @click="play"> ▶️ Play</u-button>
+      <u-button icon="i-heroicons-play-circle" @click="play"> Play</u-button>
     </div>
   </div>
 </template>
