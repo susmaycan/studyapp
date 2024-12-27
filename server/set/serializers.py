@@ -9,12 +9,16 @@ from .models import Set
 
 
 class SetSerializer(serializers.ModelSerializer):
-    terms = TermSerializer(many=True)
+    terms = serializers.SerializerMethodField()
 
     class Meta:
         model = Set
         fields = ("id", "name", "description", "terms", "picture")
         read_only_fields = ("id", "creator", "created_at")
+
+    def get_terms(self, instance):
+        ordered_terms = instance.terms.all().order_by('front')
+        return TermSerializer(ordered_terms, many=True).data
 
 
 class SetListSerializer(serializers.ModelSerializer):

@@ -47,7 +47,7 @@ const apiErrors = computed(() => {
   return []
 })
 
-const isLoading = computed(() => isUpdating.value && isCreating.value)
+const isLoading = computed(() => isUpdating.value || isCreating.value)
 const showModal = ref(false)
 
 const onSubmit = async () => {
@@ -59,6 +59,9 @@ const onSubmit = async () => {
 
   if (!updateError.value && !createError.value) {
     showModal.value = false
+
+    if (!isEditModal.value) resetForm()
+
     emits('refresh')
   }
 }

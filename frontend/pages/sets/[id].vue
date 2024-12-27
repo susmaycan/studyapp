@@ -28,7 +28,7 @@ const goToList = () => {
     <set-create-form @refresh="fetchSetDetail" :set="data" />
     <set-delete @refresh="goToList" :set="data" />
   </div>
-  <set-detail v-if="data" :set="data" />
+  <set-detail v-if="data && !isLoading" :set="data" @refresh="fetchSetDetail" />
 </template>
 
 <style scoped></style>

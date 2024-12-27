@@ -3,6 +3,8 @@ const props = defineProps<{
   set: ISet
 }>()
 
+const emits = defineEmits(['refresh'])
+
 const router = useRouter()
 
 const startGame = () => {
@@ -35,7 +37,13 @@ const emptyTermsLength = computed(() => props.set.terms.length === 0)
     <div>
       <p v-if="emptyTermsLength">No terms in this set.</p>
       <div class="flex justify-center flex-wrap">
-        <term-card-all v-for="term in set.terms" :key="term.id" :term="term" />
+        <term-card-all
+          v-for="term in set.terms"
+          :key="term.id"
+          :term="term"
+          can-edit
+          @refresh="emits('refresh')"
+        />
       </div>
     </div>
   </div>
