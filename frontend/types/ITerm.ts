@@ -4,4 +4,5 @@ export interface ITerm {
   description?: string
   front: string
   id: number
+  stats: ITermStats
 }

@@ -1,7 +1,8 @@
 <script setup lang="ts">
 const props = defineProps<{
-  term: ITerm
   canEdit?: boolean
+  showStats?: boolean
+  term: ITerm
 }>()
 
 const emits = defineEmits(['refresh'])
@@ -31,15 +32,13 @@ const playSound = () => {
       class="bg-indigo-300 dark:bg-indigo-500 w-full h-full flex flex-col items-center justify-end rounded-t-md"
     >
       <p class="font-bold pb-3">{{ term.front }}</p>
+      <term-stats v-if="showStats" :stats="term.stats" />
     </div>
     <div
       class="bg bg-teal-300 dark:bg-teal-500 w-full h-full flex flex-col items-center justify-start rounded-b-md"
     >
       <p class="term-back pt-3">
-        {{ term.back }}
-        <span v-if="term.back_alternatives" class="ml-1">
-          [{{ term.back_alternatives }}]
-        </span>
+        <term-back :term="term" />
       </p>
     </div>
   </div>

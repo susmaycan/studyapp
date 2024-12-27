@@ -12,6 +12,17 @@ const startGame = () => {
 }
 
 const emptyTermsLength = computed(() => props.set.terms.length === 0)
+
+const tabs = [
+  {
+    key: 'terms',
+    label: 'Terms',
+  },
+  {
+    key: 'stats',
+    label: 'Stats',
+  },
+]
 </script>
 <template>
   <div>
@@ -36,14 +47,31 @@ const emptyTermsLength = computed(() => props.set.terms.length === 0)
     </div>
     <div>
       <p v-if="emptyTermsLength">No terms in this set.</p>
-      <div class="flex justify-center flex-wrap">
-        <term-card-all
-          v-for="term in set.terms"
-          :key="term.id"
-          :term="term"
-          can-edit
-          @refresh="emits('refresh')"
-        />
+      <div v-else class="flex flex-col text-center items-center">
+        <u-tabs :items="tabs" class="w-full">
+          <template #item="{ item }">
+            <div v-if="item.key === 'terms'" class="space-y-3">
+              <div class="flex justify-center flex-wrap">
+                <term-card-all
+                  v-for="term in set.terms"
+                  :key="term.id"
+                  :term="term"
+                  can-edit
+                  @refresh="emits('refresh')"
+                />
+              </div>
+            </div>
+            <div v-if="item.key === 'stats'" class="space-y-3">
+              <div class="flex justify-center flex-wrap gap-4">
+                <term-stat-card
+                  v-for="term in set.terms"
+                  :key="term.id"
+                  :term="term"
+                />
+              </div>
+            </div>
+          </template>
+        </u-tabs>
       </div>
     </div>
   </div>

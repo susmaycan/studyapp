@@ -18,7 +18,8 @@ class SetSerializer(serializers.ModelSerializer):
 
     def get_terms(self, instance):
         ordered_terms = instance.terms.all().order_by('front')
-        return TermSerializer(ordered_terms, many=True).data
+        serializer_context = {'request': self.context.get('request') }
+        return TermSerializer(ordered_terms, many=True, context=serializer_context).data
 
 
 class SetListSerializer(serializers.ModelSerializer):

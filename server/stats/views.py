@@ -7,19 +7,28 @@ from rest_framework.status import (HTTP_200_OK, HTTP_201_CREATED,
                                    HTTP_400_BAD_REQUEST, HTTP_404_NOT_FOUND)
 
 from stats.models import Stats
-from stats.serializers import StatsCreateSerializer, StatsSerializer
+from stats.serializers import StatsCreateSerializer, StatTermSerializer
 from term.models import Term
+from set.models import Set
 
 
 class StatsViewSet(
     mixins.ListModelMixin,
     viewsets.GenericViewSet,
 ):
-    serializer_class = StatsSerializer
+    serializer_class = StatTermSerializer
 
     def get_queryset(self):
+        set_id = self.request.query_params.get('set')
+        set_obj = Set.objects.filter(id=set_id)
+
+        if len(set_obj) == 0:
+            return []
+
+        terms = set_obj[0].terms.all()
+
         user = self.request.user
-        return Stats.objects.filter(user=user)
+        return Stats.objects.filter(user=user, term__in=terms)
 
     def get_permissions(self):
         permission_classes = [IsAuthenticated]

@@ -3,26 +3,25 @@ from rest_framework import serializers
 from rest_framework.validators import UniqueValidator
 
 from .models import Term
-
-
+from stats.serializers import StatTermSerializer
+from stats.models import Stats
 class TermSerializer(serializers.ModelSerializer):
+    stats = serializers.SerializerMethodField()
     class Meta:
         model = Term
-        fields = ("id", "front", "back", "description", "back_alternatives")
+        fields = ("id", "front", "back", "description", "back_alternatives", "stats")
         read_only_fields = (
             "creator",
             "id",
             "created_at",
         )
 
+    def get_stats(self, instance):
+        term_id = instance.id
+        user = self.context["request"].user
 
-class TermSetSerializer(serializers.ModelSerializer):
-    id = serializers.IntegerField(read_only=True)
-
-    class Meta:
-        model = Term
-        fields = ("id", "front")
-        read_only_fields = ("id", "front")
+        stats = Stats.objects.filter(term=term_id, user=user).first()
+        return StatTermSerializer(stats).data
 
 
 class TermCreateSerializer(serializers.ModelSerializer):
