@@ -7,13 +7,13 @@ const {
   data: dataSet,
   execute: fetchSetList,
   isLoading: isLoadingSets,
-} = useAPI<IResponse<ISet>>('/sets/', { params: { ordering: 'created_at' } })
+} = useAPI<IResponse<ISet>>('/sets/', { params: { ordering: '-created_at' } })
 
 const {
   data: dataTerm,
   execute: fetchTermList,
   isLoading: isLoadingTerms,
-} = useAPI<IResponse<ITerm>>('/terms/', { params: { ordering: 'created_at' } })
+} = useAPI<IResponse<ITerm>>('/terms/', { params: { ordering: '-created_at' } })
 
 onMounted(() => {
   fetchSetList()
