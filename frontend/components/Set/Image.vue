@@ -15,7 +15,7 @@ const height = computed(() => (props.height || 11) + 'rem')
 <style scoped>
 .set-image {
   border-radius: 0.5rem;
-  object-fit: fill;
+  object-fit: cover;
   width: v-bind(width);
   height: v-bind(height);
 }
