@@ -26,10 +26,12 @@ const setList = computed<ISet[]>(
 const termList = computed<ITerm[]>(
   () => dataTerm?.value?.results.slice(0, 3) || []
 )
+
+const { isMobile } = useMobile()
 </script>
 <template>
   <div>
-    <s-title>Study App 📚</s-title>
+    <s-title v-if="!isMobile">Study App 📚</s-title>
     <div class="flex justify-center flex-wrap gap-5 mt-5"></div>
     <set-skeleton-list v-if="isLoadingSets || isLoadingTerms" />
     <div v-else class="flex flex-col items-center justify-center">

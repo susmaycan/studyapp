@@ -1,52 +1,48 @@
 <script setup lang="ts">
-const { isAuthenticated, userAvatar } = useAuth()
+const { userAvatar } = useAuth()
 
-const guestLinks = [
+const { isAuthenticated } = useAuth()
+const router = useRouter()
+
+const links = computed<ISidebarLink[]>(() => [
   {
+    authenticated: true,
     icon: 'i-heroicons-home',
+    label: 'Home',
+    placement: 'left',
     to: '/',
   },
   {
-    label: 'Sets',
+    authenticated: true,
     icon: 'i-heroicons-book-open',
+    label: 'Sets',
+    placement: 'left',
     to: '/sets',
   },
   {
-    label: 'Terms',
+    authenticated: true,
     icon: 'i-heroicons-academic-cap',
+    label: 'Terms',
+    placement: 'left',
     to: '/terms',
   },
-]
-
-const authenticatedLinks = [
-  {
-    avatar: {
-      src: userAvatar.value,
-    },
-    to: '/account',
-  },
-]
-const links = computed(() => {
-  if (!isAuthenticated.value) return guestLinks
-  else return [guestLinks, authenticatedLinks]
-})
+])
 </script>
 
 <template>
-  <div class="flex justify-center items-center mb-5">
-    <p class="text-2xl font-bold"></p>
-    <u-horizontal-navigation
-      :links="links"
-      :ui="{
-        active: 'text-xl py-3',
-        inactive: 'text-xl py-3',
-        avatar: {
-          size: 'md',
-        },
-      }"
-    />
-    <div class="ml-auto">
-      <theme-switch />
-    </div>
-  </div>
+  <s-top-bar :links="links">
+    <template #title>
+      <h2 class="font-bold text-lg">Study App 📚</h2>
+    </template>
+    <template #right>
+      <s-button
+        v-if="isAuthenticated"
+        :variant="EButtonVariant.link"
+        @click="router.push('/account')"
+      >
+        <u-avatar :src="userAvatar" alt="Avatar" />
+      </s-button>
+      <s-theme-switch />
+    </template>
+  </s-top-bar>
 </template>

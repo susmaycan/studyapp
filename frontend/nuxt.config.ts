@@ -1,9 +1,11 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   compatibilityDate: '2024-04-03',
-  devtools: { enabled: true },
   ssr: false,
-  modules: ['@nuxt/ui'],
+  modules: ['@vueuse/nuxt', '@nuxtjs/i18n', '@nuxt/ui'],
+  i18n: {
+    locales: [],
+  },
   imports: {
     dirs: ['./types'],
   },
@@ -12,6 +14,7 @@ export default defineNuxtConfig({
       API_URL: 'https://studyapp-yqmt.onrender.com',
     },
   },
+  extends: [['susmaycan-library', { install: true }]],
   app: {
     head: {
       charset: 'utf-8',
