@@ -1,5 +1,5 @@
 {
-  "name": "nuxt-app",
+  "name": "study-app",
   "private": true,
   "type": "module",
   "scripts": {
@@ -14,7 +14,7 @@
   },
   "devDependencies": {
     "@types/d3": "^7.4.3",
-    "nuxt": "^3.15.2",
+    "nuxt": "^3.16.1",
     "susmaycan-library": "github:susmaycan/nuxt-library"
   }
 }
