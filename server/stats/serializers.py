@@ -14,10 +14,5 @@ class StatTermSerializer(serializers.ModelSerializer):
 class StatsCreateSerializer(serializers.Serializer):
     terms = serializers.SerializerMethodField()
 
-    def get_terms(self, obj):
-        print("Stats!!")
-        print(obj)
-        return "Foo id: %i" % obj
-
     def create(self, data):
         print(data)

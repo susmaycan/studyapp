@@ -5,4 +5,5 @@ export interface ITerm {
   front: string
   id: number
   stats: ITermStats
+  segments?: ITermSegment[]
 }

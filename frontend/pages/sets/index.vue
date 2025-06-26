@@ -1,8 +1,4 @@
 <script setup lang="ts">
-definePageMeta({
-  middleware: ['auth'],
-})
-
 const { filters, currentPage, updateFilters } = useFilters()
 const { isAdmin } = useAuth()
 
@@ -25,9 +21,8 @@ const setList = computed<ISet[]>(() => data?.value?.results || [])
     </div>
     <s-title>Sets</s-title>
     <p>Check out the list of sets</p>
-    <div class="flex flex-col items-center justify-center">
+    <div class="flex flex-col items-center justify-center my-3">
       <s-input
-        class="my-3"
         icon="i-heroicons-magnifying-glass-20-solid"
         :is-disabled="isLoading"
         :is-loading="isLoading"

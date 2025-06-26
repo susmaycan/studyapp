@@ -1,8 +1,4 @@
 <script setup lang="ts">
-definePageMeta({
-  middleware: ['auth'],
-})
-
 const { filters, currentPage, updateFilters } = useFilters()
 const { isAdmin } = useAuth()
 const {
@@ -24,7 +20,7 @@ const termList = computed(() => data?.value?.results || [])
     </div>
     <s-title>Terms</s-title>
     <p>Check out all available terms</p>
-    <div class="flex flex-col items-center justify-center gap-4">
+    <div class="flex flex-col items-center justify-center gap-4 my-3">
       <s-input
         icon="i-heroicons-magnifying-glass-20-solid"
         :is-disabled="isLoading"

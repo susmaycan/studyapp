@@ -1,15 +1,21 @@
-from django.forms import ValidationError
 from rest_framework import serializers
-from rest_framework.validators import UniqueValidator
 
-from .models import Term
+from .models import Term, TermSegment
 from stats.serializers import StatTermSerializer
 from stats.models import Stats
+
+class TermSegmentSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = TermSegment
+        fields = ["text", "reading"]
+
 class TermSerializer(serializers.ModelSerializer):
     stats = serializers.SerializerMethodField()
+    segments = TermSegmentSerializer(many=True, read_only=True)
+
     class Meta:
         model = Term
-        fields = ("id", "front", "back", "description", "back_alternatives", "stats")
+        fields = ("id", "front", "back", "description", "back_alternatives", "stats", "segments")
         read_only_fields = (
             "creator",
             "id",
@@ -19,9 +25,11 @@ class TermSerializer(serializers.ModelSerializer):
     def get_stats(self, instance):
         term_id = instance.id
         user = self.context["request"].user
-
-        stats = Stats.objects.filter(term=term_id, user=user).first()
-        return StatTermSerializer(stats).data
+        if user.is_anonymous:
+            return None
+        else:
+            stats = Stats.objects.filter(term__id=term_id, user=user).first()
+            return StatTermSerializer(stats).data
 
 
 class TermCreateSerializer(serializers.ModelSerializer):
@@ -34,7 +42,18 @@ class TermCreateSerializer(serializers.ModelSerializer):
     description = serializers.CharField(
         max_length=2000, required=False, allow_null=True, allow_blank=True
     )
+    segments = TermSegmentSerializer(many=True)
+
 
     class Meta:
         model = Term
-        fields = ["front", "back", "description", "back_alternatives", "creator"]
+        fields = ["front", "back", "description", "back_alternatives", "creator", "segments"]
+
+    def create(self, validated_data):
+        segments_data = validated_data.pop("segments")
+        term = Term.objects.create(**validated_data)
+
+        for segment_data in segments_data:
+            TermSegment.objects.create(term=term, **segment_data)
+
+        return term

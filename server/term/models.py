@@ -18,3 +18,11 @@ class Term(models.Model):
 
     def __unicode__(self):
         return self.front
+
+class TermSegment(models.Model):
+    term = models.ForeignKey(Term, on_delete=models.CASCADE, related_name="segments")
+    text = models.CharField(max_length=10)
+    reading = models.CharField(max_length=10)
+
+    def __str__(self):
+        return f"{self.text} → {self.reading}"

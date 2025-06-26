@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import { GameSettings } from '#build/components'
-
 const emits = defineEmits(['accept'])
 
 const gameTypeOptions = [

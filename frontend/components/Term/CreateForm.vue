@@ -12,6 +12,7 @@ const form = ref<ICreateTermForm>({
   back: props.term?.back || '',
   back_alternatives: props.term?.back_alternatives || null,
   description: props.term?.description || null,
+  segments: props.term?.segments || [{ text: '', reading: '' }],
 })
 
 const {
@@ -20,7 +21,6 @@ const {
   error: createError,
 } = useAPI('/terms/', { method: 'POST', body: form, watch: false })
 
-// })
 const {
   execute: updateTerm,
   isLoading: isUpdating,
@@ -72,10 +72,35 @@ const resetForm = () => {
     back: '',
     back_alternatives: null,
     description: null,
+    segments: [],
   }
 }
 
+const addSegment = () => {
+  const noEmptySegments = !!form.value.segments?.find(
+    (segment: ITermSegment) => !!segment.text && !!segment.reading
+  )
+  if (!form.value.segments?.length || noEmptySegments) {
+    const newSegments = form.value.segments ? [...form.value.segments] : []
+    newSegments.push({ text: '', reading: '' })
+
+    form.value.segments = newSegments
+  }
+}
 const isEditModal = computed(() => !!props.term)
+
+const updateSegments = (
+  index: number,
+  key: 'reading' | 'text',
+  value: string
+) => {
+  if (form.value.segments && form.value.segments[index]) {
+    const newSegments = [...form.value.segments]
+    newSegments[index][key] = value
+
+    form.value.segments = newSegments
+  }
+}
 </script>
 <template>
   <s-button
@@ -107,7 +132,7 @@ const isEditModal = computed(() => !!props.term)
             :is-loading="isLoading"
             placeholder="Enter the term's front"
             :value="form.front"
-            @input="form.front = $event"
+            @change="form.front = $event"
           />
         </u-form-group>
 
@@ -116,7 +141,7 @@ const isEditModal = computed(() => !!props.term)
             :is-loading="isLoading"
             placeholder="Enter the term's back"
             :value="form.back"
-            @input="form.back = $event"
+            @change="form.back = $event"
           />
         </u-form-group>
         <u-form-group label="Back alternatives" name="back_alternatives">
@@ -124,7 +149,7 @@ const isEditModal = computed(() => !!props.term)
             :is-loading="isLoading"
             placeholder="Enter the term's back alternatives separated by commas"
             :value="form.back_alternatives || ''"
-            @input="form.back_alternatives = $event"
+            @change="form.back_alternatives = $event"
           />
         </u-form-group>
         <u-form-group label="Description" name="description">
@@ -132,9 +157,34 @@ const isEditModal = computed(() => !!props.term)
             :is-loading="isLoading"
             placeholder="Enter the term's description"
             :value="form.description || ''"
-            @input="form.description = $event"
+            @change="form.description = $event"
           />
         </u-form-group>
+        <div class="flex justify-between">
+          <label>Segments:</label>
+          <s-button @click="addSegment">Add segment</s-button>
+        </div>
+        <div
+          v-for="(segment, index) in form.segments"
+          class="grid lg:grid-cols-2 grid-cols-1 gap-2"
+        >
+          <u-form-group label="Text">
+            <s-input
+              :is-loading="isLoading"
+              placeholder="Enter text"
+              :value="segment.text"
+              @change="updateSegments(index, 'text', $event)"
+            />
+          </u-form-group>
+          <u-form-group label="Reading">
+            <s-input
+              :is-loading="isLoading"
+              placeholder="Enter reading"
+              :value="segment.reading"
+              @change="updateSegments(index, 'reading', $event)"
+            />
+          </u-form-group>
+        </div>
         <u-alert
           v-if="apiErrors && apiErrors.length"
           color="red"

@@ -1,10 +1,8 @@
 <script setup lang="ts">
-definePageMeta({
-  middleware: ['auth'],
-})
-
 const route = useRoute()
 const setId = computed(() => route.params.id)
+const { isAuthenticated } = useAuth()
+
 const {
   data,
   execute: fetchSetDetail,
@@ -30,8 +28,10 @@ const saveSettings = (savedSettings: IGameSettings) => {
 }
 
 const finishGame = (gameResults: IGameTermResults[]) => {
-  results.value.terms = gameResults
-  setResults()
+  if (isAuthenticated.value) {
+    results.value.terms = gameResults
+    setResults()
+  }
 }
 </script>
 

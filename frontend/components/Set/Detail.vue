@@ -6,6 +6,7 @@ const props = defineProps<{
 const emits = defineEmits(['refresh'])
 
 const router = useRouter()
+const { isAuthenticated } = useAuth()
 
 const startGame = () => {
   router.push(`/game/${props.set?.id}`)
@@ -62,12 +63,18 @@ const tabs = [
               </div>
             </div>
             <div v-if="item.key === 'stats'" class="space-y-3">
-              <div class="flex justify-center flex-wrap gap-4">
+              <div
+                class="flex justify-center flex-wrap gap-4"
+                v-if="isAuthenticated"
+              >
                 <term-stat-card
                   v-for="term in set.terms"
                   :key="term.id"
                   :term="term"
                 />
+              </div>
+              <div class="my-4">
+                Stats only available for authenticated users.
               </div>
             </div>
           </template>

@@ -3,6 +3,7 @@
   <div class="h-screen p-5">
     <top-bar />
     <div class="text-center h-full">
+      <header />
       <slot />
     </div>
   </div>

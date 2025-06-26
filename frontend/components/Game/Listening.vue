@@ -91,6 +91,7 @@ watch(
         @input="writeResult"
       />
       <s-button
+        class="mt-3"
         @click="selectOption"
         :is-disabled="!selectedUserResult || displayAlert"
       >

@@ -26,6 +26,34 @@ const links = computed<ISidebarLink[]>(() => [
     placement: 'left',
     to: '/terms',
   },
+  {
+    authenticated: false,
+    icon: 'i-heroicons-home',
+    label: 'Home',
+    placement: 'left',
+    to: '/',
+  },
+  {
+    authenticated: false,
+    icon: 'i-heroicons-book-open',
+    label: 'Sets',
+    placement: 'left',
+    to: '/sets',
+  },
+  {
+    authenticated: false,
+    icon: 'i-heroicons-academic-cap',
+    label: 'Terms',
+    placement: 'left',
+    to: '/terms',
+  },
+  {
+    authenticated: false,
+    icon: 'i-heroicons-arrow-right-end-on-rectangle-16-solid',
+    label: 'Login',
+    placement: 'right',
+    to: '/login',
+  },
 ])
 </script>
 
